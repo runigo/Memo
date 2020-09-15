@@ -1,0 +1,39 @@
+texlive						- TeX Live : une sélection raisonnable de paquets TeX Live
+	inclus : 
+		texlive-base				- programmes et fichiers essentiels pour TeX Live
+		texlive-fonts-recommended	- TeX Live : fontes recommendées
+		texlive-latex-base			- TeX Live : paquets LaTeX essentiels
+		texlive-latex-recommended	- TeX Live : paquets recommandés pour LaTeX
+
+Pour l'interface graphique de SiCP2 :
+
+		texlive-pictures		- TeX Live : graphismes, images, diagrammes
+		texlive-latex-extra		- TeX Live: LaTeX additional packages
+
+
+Pour la documentation des simulateurs
+
+		texlive-lang-french		- TeX Live: French
+		texlive-lang-greek		- TeX Live : grec
+
+
+Non installés :
+
+v   texlive-base-bin
+
+p   texlive-bibtex-extra		- TeX Live: BibTeX additional styles
+
+p   texlive-extra-utils			- TeX Live : programmes auxiliaires pour TeX
+
+p   texlive-font-utils			- utilitaires de graphismes et fontes pour Tex Live
+p   texlive-fonts-extra			- TeX Live: Additional fonts
+p   texlive-fonts-extra-links	- TeX Live :
+
+p   texlive-science			- TeX Live: Mathematics, natural sciences, computer science packages
+
+texlive-extra-utils
+
+texlive-latex-extra
+texlive-math-extra
+
+

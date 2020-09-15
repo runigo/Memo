@@ -1,0 +1,18 @@
+
+    CONFIGURATION GLOBAL
+
+git config --global user.name runigo
+git config --global user.email runigo@free.fr
+
+
+    CONFIGURATION LOCAL
+
+git config --local user.name runigo
+git config --local user.email runigo@free.fr
+
+
+    INFORMATION
+
+git config --list --show-origin
+
+
