@@ -1,0 +1,54 @@
+% Drawing a tree several times using the PGF 3.0 pic feature
+% Authors: Kate, Ignasi
+\documentclass[tikz]{standalone}
+%%%<
+\usepackage{verbatim}
+%%%>
+\begin{comment}
+:Title: Drawing trees
+:Tags: Random;Pic;PGF 3.0;Decorative drawings
+:Author: Ignasi
+:Slug: tree-pic
+
+PGF 3.0 introduces `pic`, a "short picture" which can be inserted
+in any place of a tikzpicture.
+
+From the manual: A “pic” is a “short picture” (hence the short name...) that
+can be inserted anywhere in TikZ picture where you could also insert a node.
+Similarly to nodes, pics have a “shape” (called `type` to avoid confusion) that
+someone has defined. Each time a pic of a specified type is used, the type’s
+code is executed, resulting in some drawings to be added to the current picture.
+The syntax for adding nodes and adding pics to a picture are also very similar.
+The core difference is that pics are typically more complex than nodes and may
+consist of a whole bunch of nodes themselves together with complex paths
+joining them.
+
+Here we use the pic feature for drawing a tree several times.
+
+The code was written by Kate and Ignasi and published on TeX.SE.
+\end{comment}
+\usetikzlibrary{decorations.pathmorphing,calc,shapes,shapes.geometric,patterns}
+\tikzset{
+  treetop/.style = {decoration={random steps, segment length=0.4mm}, decorate},
+  trunk/.style   = {decoration={random steps, segment length=2mm,
+                    amplitude=0.2mm}, decorate}}
+
+\tikzset{
+   my tree/.pic={
+     \foreach \w/\f in {0.3/30,0.2/50,0.1/70} {
+       \fill [brown!\f!black, trunk] (-\w/2,0) rectangle +(\w,3);
+     }
+     \foreach \n/\f in {1.4/40,1.2/50,1/60,0.8/70,0.6/80,0.4/90} {
+       \fill [green!\f!black, treetop](0,3) ellipse (\n/1.5 and \n);
+     }
+   }
+}
+\begin{document}
+\begin{tikzpicture}
+  \shade[bottom color=cyan!60!black, top color=blue!20!white] (0,0)
+    rectangle (10,10);
+  \pic at (2,2)    {my tree};
+  \pic at (4,2.5)  {my tree};
+  \pic at (6,1.75) {my tree};
+\end{tikzpicture}
+\end{document}
