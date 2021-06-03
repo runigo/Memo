@@ -1,3 +1,26 @@
+
+INSTALLATION
+
+	apt-get install texlive texlive-pictures texlive-latex-extra texlive-lang-french texlive-lang-greek
+
+
+PRODUIRE UN FICHIER PDF
+
+	pdflatex [fichier.tex] : produit fichier.pdf (lancer deux fois pour mettre à jour la table des matières)
+
+
+PRODUIRE UN FICHIER PDF AVEC BIBLIOGRAPHIE
+
+	latex [fichier.tex] : met à jour fichier.aux (lancer deux fois, ignorer les erreurs due aux image jpg)
+
+	bibtex [fichier.aux] : met à jour la bibliographie (lancer deux fois)
+
+	pdflatex [fichier.tex] : produit fichier.pdf (lancer deux fois pour mettre à jour la table des matières)
+
+
+
+DÉTAIL DES PAQUETS À INSTALLER
+
 texlive						- TeX Live : une sélection raisonnable de paquets TeX Live
 	inclus : 
 		texlive-base				- programmes et fichiers essentiels pour TeX Live
