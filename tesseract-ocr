@@ -1,0 +1,4 @@
+
+for i in *.png ; do tesseract -l fra $i $i.txt;  done;
+
+

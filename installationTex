@@ -39,6 +39,10 @@ Pour la documentation des simulateurs
 		texlive-lang-french		- TeX Live: French
 		texlive-lang-greek		- TeX Live : grec
 
+Pour les diagrammes d'echec
+
+		apt-get install texlive-games
+
 
 Non installés :
 
