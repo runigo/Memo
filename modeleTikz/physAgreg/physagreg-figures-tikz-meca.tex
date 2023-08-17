@@ -1,0 +1,1939 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+\usepackage[babel=true,kerning=true]{microtype}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+
+%http://pgfplots.sourceforge.net/gallery.html
+\usepackage[usenames, dvipsnames,svgnames, x11names]{xcolor}
+
+\usepackage{pgfplots}
+\usepackage{graphics}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{esint} % package de symboles mathématiques
+\usepackage{amssymb}
+ 
+\usepackage{tikz}
+\usepackage[europeanresistor]{circuitikz}
+
+%prévisualisation dessin par dessin
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}
+%fin
+
+\usetikzlibrary{decorations.markings,decorations.pathmorphing,decorations.pathreplacing}
+\usetikzlibrary{calc,patterns,shapes.geometric}
+%\tikzstyle arrowstyle=[scale=2] %taille des flèches
+
+\usetikzlibrary{arrows,shapes,positioning}
+\tikzstyle arrowstyle=[scale=1] %taille des flèches
+\usetikzlibrary{fadings}
+\tikzset{verre/.style={draw=SkyBlue,fill=SkyBlue!30}}
+\tikzstyle simple=[postaction={decorate,decoration={markings,
+    mark=at position .5 with {\arrow[scale=1,draw=red,>=stealth]{>}}}}]
+\tikzstyle simplerev=[postaction={decorate,decoration={markings,
+    mark=at position .5 with {\arrow[scale=1,draw=red,>=stealth]{<}}}}]
+
+\tikzset{verre/.style={draw=SkyBlue,fill=SkyBlue!30}}
+
+\begin{document}
+
+%=========================================================
+				%MECANIQUE
+%=========================================================
+
+\tikzset{ressort/.style={thick,gray,smooth}}
+\tikzstyle{cadre}=[rectangle,inner sep=5pt,inner ysep=5pt,draw,thick]% 
+
+
+\begin{tikzpicture}[scale=1]
+	 \node at (0,0) {\Huge \textbf{Mécanique}};	% ----  1
+\end{tikzpicture}
+
+
+
+
+%--------------Base cartésienne----------------------  2
+  
+\begin{tikzpicture}[scale=1]  
+	% \helpgrid{3}{3}
+\draw [->,-latex] (0,0) --++ (-0.5,-1) node [left] {$\overrightarrow{e_x}$}	;   
+\draw [->,-latex] (0,0) --++ (1.5,0) node [below] {$\overrightarrow{e_y}$}	;
+\draw [->,-latex] (0,0) --++ (0,1.5) node [left] {$\overrightarrow{e_z}$}	; 
+\node at (0,0) [left]{O};
+\node at (0,-2) {\small $||\overrightarrow{e_x}||=1$ ; $||\overrightarrow{e_y}||=1$ ; $||\overrightarrow{e_z}||=1$};                      
+\end{tikzpicture}
+
+                           
+%----------------vecteur position OM en base cartésienne-----------------  3
+ \begin{tikzpicture}[scale=1]
+ 				%\helpgrid{3}{3};  
+ 		   \coordinate (M) at (2,2);	
+ 		   \coordinate (O) at (0,0);	
+
+ 			\draw [->,-latex] (0,0) --++ (-0.25,-0.5) node [left] {$\overrightarrow{e_x}$}	;   
+ 				\draw [->,-latex] (0,0) --++ (0.75,0) node [below] {$\overrightarrow{e_y}$}	;
+ 				\draw [->,-latex] (0,0) --++ (0,0.75) node [left] {$\overrightarrow{e_z}$}	;
+ 				\draw [->] (0,0) --++ (-1.5,-3) node [left] {$x$}	;   
+ 				\draw [->] (0,0) --++ (4.5,0) node [below] {$y$}	;
+ 				\draw [->] (0,0) --++ (0,4.5) node [left] {$z$}	; 
+ 				\node at (0,0) [left]{O};
+ 			
+ 				\draw (2,2) --++(0.1,0) (2,2) --++(-0.1,0) (2,2) --++(0,0.1) (2,2) --++(0,-0.1);
+ 				\node at (M) [above right]{M};
+ 			
+ 				\draw[dashed] (M) --++ (0,-3.5) --++ (-2.8,0) (M) --++ (0,-3.5)--++ (0.5,1.5) (M)--++ (-2,0.5);
+ 			
+ 				\draw [line width=1.5pt,-stealth] (O) --(M);             
+ \end{tikzpicture}
+    
+		  
+
+
+  
+%----------------vecteur vitesse vitesse en base cartésienne---------------  4
+\begin{tikzpicture}[scale=1]  
+	 %\helpgrid{3}{3}  
+\coordinate (M) at (1.325,2);
+\coordinate (M1) at (1.75,2.5);   
+\coordinate (O) at (0,0);	
+	        
+\draw [->,-latex] (0,0) --++ (0.75,0) node [below] {$\overrightarrow{e_y}$}	;
+\draw [->,-latex] (0,0) --++ (0,0.75) node [left] {$\overrightarrow{e_z}$}	;
+\draw [->] (0,0) --++ (4.5,0) node [below] {$y$}	;
+\draw [->] (0,0) --++ (0,4.5) node [left] {$z$}	; 
+\node at (0,0) [left]{O};
+
+\draw (M) --++(0.1,0) (M) --++(-0.1,0) (M) --++(0,0.1) (M) --++(0,-0.1);
+\draw (M1) --++(0.1,0) (M1) --++(-0.1,0) (M1) --++(0,0.1) (M1) --++(0,-0.1);
+
+\node at (M) [shift=({0.5,-0.2})] {\scriptsize $\mathrm{M}(t)$}; 
+\node at (M1) [shift=({0.75,-0.2})] {\scriptsize $\mathrm{M}(t+\mathrm{d}t)$};
+                   
+\draw [line width=1pt,-stealth] (M) --(M1) node [midway, above left] {\scriptsize $\mathrm{d}\overrightarrow{OM}$};
+                      
+\draw [line width=0.5pt,-latex] (M)  --++ ($2.5*(M1)-2.5*(M)$) node [above] { \scriptsize $\overrightarrow{v}(M)$};
+                               
+\draw (1,1) .. controls (1,2) and (2,3) .. (3,3);                        
+                   
+\end{tikzpicture}
+      
+	
+%----------------Forces problème 1 à t=0 -------------------  5
+
+\begin{tikzpicture}[scale=1]
+ %   \node[,inner sep=0] at (0,0);% {\includegraphics[scale=0.45]{main.png}};           %anchor=south west  
+% inner sep=0 : taille du blanc autour de l'objet   
+   \begin{scope}[shift=({0.95,-0.4})]
+	\filldraw [blue!50] (0,0) circle (0.3cm);   
+	\draw [->,-latex,line width=1.5pt,black] (0,0) --++ (0,-1.5) node [below] {$\overrightarrow{P} = \overrightarrow{F}_{T/O}$};
+	\draw [->,-latex,line width=1.5pt,black] (0,0) --++ (0,1.5) node [above] {$\overrightarrow{R} = \overrightarrow{F}_{M/O}$};        
+\end{scope}
+\end{tikzpicture}
+
+    
+ 
+                  
+	%------------parabole----------------%  6
+
+\begin{tikzpicture}[scale=1]
+	\def \v{8}
+	\def \alph{45}
+	\def \h{1.5}	     
+
+	\coordinate (O) at (0,0);	
+
+	%graduations des axes        
+	\foreach \x in {0,...,8}
+	\draw (\x,2pt) -- (\x,-2pt)
+	node[anchor=north] {\x};
+	\foreach \y in {0,1,...,4}
+	\draw (2pt,\y) -- (-2pt,\y) 
+	node[anchor=east] {\y};       
+
+	\draw [->,-latex] (0,0) --++ (0.75,0) node [below left] {$\overrightarrow{e_y}$}	;
+	\draw [->,-latex] (0,0) --++ (0,0.75) node [below left] {$\overrightarrow{e_z}$}	;
+	\draw [->] (0,0) --++ (9,0) node [below] {$y$}	;
+	\draw [->] (0,0) --++ (0,5) node [left] {$z$}	; 
+	% \node at (0,0) [left]{O};    
+
+	\filldraw (0,1.5) circle (0.025cm); 
+	\draw [->,-latex] (0,1.5) --++ (45:1cm) node [above] {$\overrightarrow{v_0}$}; 
+	\node at (-0.2,1.5) [left] {$z=h$};
+	\draw [dashed] (0,1.5) --++ (1,0);
+	\draw (0.3,1.8) to [bend left=45] (0.4,1.5);  
+	\node at (0.6,1.7) {$\alpha$};   
+
+	\clip (-0.5,0) rectangle (8,5.2);
+	 \draw [domain=0:8, smooth,samples=15,, mark=*] plot (\x,{-0.5*9.81*(\x^2/(\v^2*(cos(\alph))^2))+ tan(\alph)*\x + \h});        
+
+	% \filldraw [blue] (3,3.1) circle (0.1cm);            
+
+	% \filldraw [red] (7.79,0) ellipse (0.05cm and 0.25cm); %pointage de la portée max
+	\end{tikzpicture}	
+
+ 
+          
+
+  %------------paraboles plusieurs angles h >0----------------  7
+\begin{tikzpicture}[scale=1]  
+	\def \h{1.5}	     
+	\def \v{8}           
+
+	\coordinate (O) at (0,0);	
+
+	\draw [->,-latex] (0,0) --++ (0.75,0) node [above] {\small $ \overrightarrow{e_y}$}	;
+	\draw [->,-latex] (0,0) --++ (0,0.75) node [right] {\small $\overrightarrow{e_z}$}	;
+	\draw [->] (0,0) --++ (9,0) node [below] {$y$}	;
+	\draw [->] (0,0) --++ (0,6) node [left] {$z$}	; 
+	\node at (0,0) [left]{O};      
+
+	\foreach \x/\xtext in {1/1, 2/2, 3/3, 4/4, 5/5, 6/6, 7/7, 8/8}
+	    \draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+	    \foreach \y/\ytext in {1/1, 2/2, 3/3, 4/4, 5/5}
+	    \draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
+
+	\draw (0,1.5) --++ (1pt,0) (0,1.5) --++ (-1pt,0); 
+	\node at (0,1.5) [left] {$z=h$};
+
+	\node [cadre,text width=3.5cm] at (6,5)  {\scriptsize $h = 1,5\,\mathrm{m}$ ; $v=8\,\mathrm{m.s^{-1}}$\newline Plusieurs angles testés};  %[shift=({5,7})]  
+
+	\node at (3.3,3.35) [pink] {\tiny $\alpha = 45^\circ$};	
+
+	\clip (0,0) rectangle (8,6);
+	\foreach \alph/\coul in {5/green,15/red,25/blue,35/Yellow,45/pink,55/purple,65/brown,75/orange,85/black}
+	{  
+	 \draw [domain=0:8,color=\coul, thick, smooth,samples=200,mark=none] plot (\x,{-0.5*9.81*(\x^2/(\v^2*(cos(\alph))^2))+ tan(\alph)*\x + \h});
+	}         
+     \end{tikzpicture}
+
+%------------parabole plusieurs angles h=0----------------   8
+
+\begin{tikzpicture}[scale=1]
+	\def \v{8}
+	\def \h{0}	     
+
+	\coordinate (O) at (0,0);	
+
+	\draw [->] (0,0) --++ (9,0) node [below] {$y$}	;
+	\draw [->] (0,0) --++ (0,4) node [left] {$z$}	; 
+	\node at (0,0) [left]{O};      
+
+	\foreach \x/\xtext in {1/1, 2/2, 3/3, 4/4, 5/5, 6/6, 7/7, 8/8}
+	    \draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+	    \foreach \y/\ytext in {1/1, 2/2, 3/3}
+	    \draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
+
+	\node [cadre,text width=3.5cm] at (6,3)  {\scriptsize $h = 0\,\mathrm{m}$ ; $v=8\,\mathrm{m.s^{-1}}$\newline Plusieurs angles testés};  %[shift=({5,7})]      
+
+	\clip (0,0) rectangle (8,4.2);
+	\foreach \alph/\coul in {5/green,15/red,25/blue,35/Yellow,45/pink,55/purple,65/brown,75/orange,85/black}
+	{
+	 \draw [domain=0:8,color=\coul, thick, smooth,samples=200,mark=none] plot (\x,{-0.5*9.81*(\x^2/(\v^2*(cos(\alph))^2))+ tan(\alph)*\x + \h});
+	}            
+ \end{tikzpicture}
+
+  	
+ 
+
+			%------------paraboles un angle, plusieurs h----------------  9
+			\begin{tikzpicture}[scale=1]
+			   	\def \v{8}
+				% \def \alph{45}	     
+
+				\coordinate (O) at (0,0);	
+
+
+				\draw [->] (0,0) --++ (9,0) node [below] {$y$}	;
+				\draw [->] (0,0) --++ (0,4) node [left] {$z$}	; 
+				\node at (0,0) [left]{O};      
+
+				\foreach \x/\xtext in {1/1, 2/2, 3/3, 4/4, 5/5, 6/6, 7/7, 8/8}
+				    \draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+				    \foreach \y/\ytext in {1/1, 2/2, 3/3}
+				    \draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
+
+					\node [cadre,text width=3.5cm] at (6.5,4)  {\scriptsize $v = 8\,\mathrm{m.s^{-1}}$ ; $\alpha=45^\circ$\newline Plusieurs hauteurs testées};  %[shift=({5,7})]  
+
+
+				\clip (0,0) rectangle (9,4.2);
+				\foreach \h/\alph/\coul in {0.5/45/green,1/45/red/dashed,1.5/45/blue/dashed,2/45/pink/dashed}                
+				{
+				 \draw [domain=0:12,color=\coul, thick, smooth,samples=200,mark=none] plot (\x,{-0.5*9.81*(\x^2/(\v^2*(cos(\alph))^2))+ tan(\alph)*\x + \h});
+				}
+			 \end{tikzpicture}
+
+
+	 
+ 
+			
+%------------paraboles plusieurs v----------------  10
+ 
+\begin{tikzpicture}[scale=1]
+   % \def \v{8}
+   \def \h{1.5}
+  \def \alph{45}
+  \coordinate (O) at (0,0);	
+
+  \draw [->] (0,0) --++ (9,0) node [below] {$y$}	;
+  \draw [->] (0,0) --++ (0,4) node [left] {$z$}	; 
+  \node at (0,0) [left]{O};      
+
+  \foreach \x/\xtext in {1/1, 2/2, 3/3, 4/4, 5/5, 6/6, 7/7, 8/8}
+  \draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+  \foreach \y/\ytext in {1/1, 2/2, 3/3}
+  \draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
+
+ 	\node [cadre,text width=3.5cm] at (6,4)  {\scriptsize $h = 1,5\,\mathrm{m}$ ; $\alpha=45^\circ$\newline Plusieurs vitesses testées};  %[shift=({5,7})]         
+
+  \clip (0,0) rectangle (9,4.2);
+  \foreach \v/\coul in {5/red,5.5/blue,6/green,6.5/yellow,7/purple,7.5/pink,8/orange}
+  { 
+  \draw [domain=0:9,color=\coul, thick, smooth,samples=200,mark=none] plot (\x,{-0.5*9.81*(\x^2/(\v^2*(cos(\alph))^2))+ tan(\alph)*\x + \h});
+  }
+ \end{tikzpicture}
+
+
+
+%------------paraboles de sureté----------------  11
+\begin{tikzpicture}[scale=1]
+   	\def \v{8}
+	\def \alph{45}
+	\def \h{1.5}	     
+
+	\coordinate (O) at (0,0);	
+
+	%graduations des axes        
+	\foreach \x in {0,...,8}
+	\draw (\x,2pt) -- (\x,-2pt)
+	node[anchor=north] {\x};
+	\foreach \y in {0,1,...,4}
+	\draw (2pt,\y) -- (-2pt,\y) 
+	node[anchor=east] {\y};       
+
+	\draw [->,-latex] (0,0) --++ (0.75,0) node [below left] {$\overrightarrow{e_y}$}	;
+	\draw [->,-latex] (0,0) --++ (0,0.75) node [below left] {$\overrightarrow{e_z}$}	;
+	\draw [->] (0,0) --++ (9,0) node [below] {$y$}	;
+	\draw [->] (0,0) --++ (0,5) node [left] {$z$}	; 
+	% \node at (0,0) [left]{O};    
+
+	% \filldraw (0,1.5) circle (0.025cm); 
+	% \draw [->,-latex] (0,1.5) --++ (45:1cm) node [above] {$\overrightarrow{v_0}$}; 
+	% \node at (0,1.5) [left] {$z=h$};
+	% \draw [dashed] (0,1.5) --++ (1,0);
+	% \draw (0.3,1.8) to [bend left=45] (0.4,1.5);  
+	% \node at (0.6,1.7) {$\alpha$};        
+
+	\clip (0,0) rectangle (8,5.2);
+	 \draw [domain=0:8, smooth,samples=15,dashed,line width=2pt] plot (\x,{\v^2/(2*9.81) - 9.81*\x^2/(2*\v^2) + \h});        
+	 \clip (0,0) rectangle (8,6);
+	\foreach \alph/\coul in {5/green,15/red,25/blue,35/Yellow,45/pink,55/purple,65/brown,75/orange,85/black}
+	{  
+	 \draw [domain=0:8,color=\coul, thick, smooth,samples=200,mark=none] plot (\x,{-0.5*9.81*(\x^2/(\v^2*(cos(\alph))^2))+ tan(\alph)*\x + \h});
+	}
+	% \filldraw [blue] (3,3.1) circle (0.1cm);            
+
+	% \filldraw [red] (7.79,0) ellipse (0.05cm and 0.25cm); %pointage de la portée max
+ \end{tikzpicture}
+
+ 
+ 
+ %------------chute avec frottements linéaires---------------  12
+ 
+	\begin{tikzpicture}[scale=1]
+	 \def \g{9.81}
+	\def \m{80}
+	\def \k{11.292}	     
+	  \begin{axis}[
+		xmin=0, xmax=40,
+	ymin=0, ymax=75, 
+	extra y ticks={69.5},
+	grid style={very thin, color=gray},
+		grid=none, % grille verticale et horizontale
+	axis x line=bottom,
+	axis y line=left,
+	axis line style={>=stealth,->},
+	tick style={color=black},
+	xlabel=$t(\mathrm{s})$, ylabel=$|v_z|(\mathrm{m.s^{-1}})$, style={black}, %ylabel=$V_S$ $V_E$
+	%minor x tick num=10,
+	%minor y tick num=5
+	]     	
+	\draw [dashed] (axis cs:0,69.5) node [above right] {$v_{\mathrm{lim}}$} --++ (axis cs:40,0) ;    	
+	 \addplot+[domain=0:40,color=red, thick, smooth,samples=200,mark=none] (\x,{-(\g*\m/\k)*(exp(-\k*\x/\m)-1)}); 
+	\node [cadre,align=center,text width=3cm] at (axis cs:29,30)  {\scriptsize \centering Cas des frottements linéaires
+		};
+ \end{axis}
+	\end{tikzpicture}   
+	
+	%-------------Différents régimes lors de la chute----------------  13
+	
+		\begin{tikzpicture}[scale=1]      
+		 \def \g{9.81}
+		\def \m{80}
+		\def \k{11.292}	     
+		  \begin{axis}[
+			xmin=0, xmax=55,
+		ymin=0, ymax=75, 
+		extra y ticks={69.5},
+		grid style={very thin, color=gray},
+			% grid=both, % grille verticale et horizontale 
+	 	% minor tick num=1,
+		extra x ticks={7,35}, extra x tick labels={$\tau$,$5\tau$}, 
+		extra x tick style={tick label style={fill=gray!30}},
+		axis x line=bottom,
+		axis y line=left,   
+		axis line style={>=stealth,->},
+		tick style={color=black},
+		xlabel=$t(\mathrm{s})$, ylabel=$|v_z|(\mathrm{m.s^{-1}})$, style={black}, %ylabel=$V_S$ $V_E$
+		%minor x tick num=10,
+		%minor y tick num=5
+		]     	
+		\draw [dashed] (axis cs:0,69.5) --++ (axis cs:55,0) node [midway, above right] {$v_{\mathrm{lim}}$};
+		\draw [black,thick] (axis cs:0,0) --++ (axis cs:8,80) ;
+		\draw [dotted, thick] (axis cs:7,69.5)--++(axis cs:0,-69.5);% node [below] {$\tau$};
+		 \filldraw [fill=gray!30, draw=none,opacity=0.5] (0,0) rectangle (axis cs: 35,69.5); 
+ 	
+		 \addplot+[domain=0:55,color=red, thick, smooth,samples=200,mark=none] (\x,{-(\g*\m/\k)*(exp(-\k*\x/\m)-1)}); 
+		\node [text width=2.5cm] at (axis cs:20,30)  {\scriptsize Régime transitoire}; 
+		 \node at (axis cs: 45,30) {\scriptsize Régime permanent};	
+	 \end{axis}                                                   
+
+	%note à l'extérieur de l'environnement axis
+	% \node at (0.75,-0.3) [fill=gray!30] {$\tau$};             
+	% \node at (3.85,-0.3) [fill=gray!30] {$5\,\tau$};
+		\end{tikzpicture}
+		
+ 	   %------------------- deux cours cote à cote -------------  14
+		
+		
+   		\begin{tikzpicture}[scale=0.75]
+   			\pgfplotsset{every axis title/.style={at={(0.5,1)},above,yshift=6pt}}
+   		 \def \g{9.81};
+   		\def \m{80};
+   		\def \k{11.292};	 
+   		\def \h{4000}
+   		\def \to{(\m/\k)}     %parenthèse pour calcul !!!
+   		  \begin{axis}[
+   			xmin=0, xmax=40,
+   		ymin=0, ymax=5*10^3, 
+   		% extra x ticks={5},
+   		% 		extra x ticks labels={$\tau$},   
+   		every axis y label/.style={at={(ticklabel cs:0.5)},rotate=90,anchor=near ticklabel},%décoller la légende 
+   		grid style={very thin, color=gray},
+   			grid=none, % grille verticale et horizontale
+   		axis x line=bottom,
+   		axis y line=left,
+   		axis line style={>=stealth,->},
+   		tick style={color=black},
+   		xlabel=$t(\mathrm{s})$, ylabel=$z(\mathrm{m})$, style={black}, %ylabel=$V_S$ $V_E$
+   		%minor x tick num=10,
+   		%minor y tick num=1
+   		]     	
+   		% \draw [dashed] (axis cs:0,53) node [above right] {$v_{\mathrm{lim}}$} --++ (axis cs:25,0) ;    	
+   		 \addplot+[domain=0:40,color=red, thick, smooth,samples=500,mark=none] (\x,{\h-\g*\to*\x+(\g*\to^2)*(1-exp(-\x/\to))});
+	   
+   		% \node [cadre,text width=2.5cm] at (axis cs:19,38)  {\scriptsize \centering Cas des frottements linéaires
+   		\end{axis}
+   		\begin{scope}[shift=({10,0})]
+   			\def \m{80}
+   			\def \k{11.292}	 
+   			\def \to{\m/\k}     
+   			  \begin{axis}[
+   				xmin=0, xmax=40,
+   			ymin=0, ymax=0.5, 
+   			extra y ticks={},
+   			grid style={very thin, color=gray},
+   				grid=none, % grille verticale et horizontale
+   			axis x line=bottom,
+   			axis y line=left,
+   			axis line style={>=stealth,->},
+   			tick style={color=black},
+   			xlabel=$t(\mathrm{s})$, ylabel=$1-\exp \left(-\dfrac{t}{\tau}\right)$, style={black}, %ylabel=$V_S$ $V_E$
+   			%minor x tick num=10,
+   			%minor y tick num=5
+   			]
+   	 \addplot+[domain=0:50,color=red, thick, smooth,samples=500,mark=none] (\x,{1-exp(-\x/\to)});    
+   	 \end{axis}	
+   		\end{scope} 
+   		\end{tikzpicture}
+		
+ 	   %-------------------explications méthode euler -------------  15
+		
+		
+		    \begin{tikzpicture}[scale=0.6]
+			\clip (-1.5,-1) rectangle++ (16.5,7);
+			 \def \g{9.81}
+			\def \m{80}
+			\def \k{15}
+			%\def \tandix{\g*exp(-\k*10/\m)*10}
+			%\def \vdix{-(\g*\m/\k)*(exp(-\k*10/\m)-1)}
+			%\def \dec{\vdix-\tandix}
+			  \begin{axis}[
+				xmin=0, xmax=28,
+			ymin=0, ymax=62,
+			  grid style={very thin, color=gray},
+				grid=none, % grille verticale et horizontale
+			axis x line=bottom,
+			axis y line=left,
+			axis line style={>=stealth,->},
+			tick style={color=black},
+			xlabel=$t(\mathrm{s})$, ylabel=$v(\mathrm{m.s^{-1}})$, style={black}, %ylabel=$V_S$ $V_E$
+			]
+			\draw [dashed] (axis cs:10,0) --++ (axis cs:0,45);
+			 \addplot+[domain=0:28,color=red, thick, smooth,samples=200,mark=none] (\x,{-(\g*\m/\k)*(exp(-\k*\x/\m)-1)});
+			\addplot+[domain=0:25,color=blue, thick, smooth,samples=200,mark=none,shift={(axis cs:0,29.25)}] (\x,{\g*exp(-\k*10/\m)*\x});  %tangente
+			% \node [cadre,text width=2.5cm] at (axis cs:19,38)  {\scriptsize \centering Cas des frottements linéaires
+			% 		};
+
+		   \draw (axis cs:2.5,33) --++ (axis cs:0,0.75) (axis cs:2.5,33) --++ (axis cs:0,-0.75) node [shift=({axis cs:0,4})] {A};
+		 \draw (axis cs:17.5,55.5) --++ (axis cs:0,0.75) (axis cs:17.5,55.5) --++ (axis cs:0,-0.75) node [shift=({axis cs:0,4})] {B};
+
+		\draw [<->,dotted] (axis cs:2.5,32) -- (axis cs:17.5,32) node [midway,below,fill=white]{$\Delta t =t_B-t_A$};
+		\draw [<->,dotted] (axis cs:17.5,33) -- (axis cs:17.5,54.5)  node [midway,right,fill=white,shift=({axis cs:0,2})]{$\Delta v = v_B-v_A$};
+
+
+
+	          	\draw [black] (axis cs:8,39) rectangle++ (axis cs:4,10);
+
+
+		 \end{axis}
+
+		\begin{scope}[shift={(-1.8,-19)}]
+			\begin{scope}[scale=5]
+			  \begin{axis}[
+				xmin=0, xmax=25,
+			ymin=0, ymax=58,
+			% grid style={very thin, color=gray},
+			axis x line=none,
+			axis y line=none,
+			axis line style={>=stealth,->},
+			]
+
+			\draw (axis cs:8,39) rectangle++ (axis cs:4,10);
+			\clip (axis cs:7.95,38.9) rectangle++ (axis cs:4.1,11);
+		   	\draw [black] (axis cs:8,39) rectangle++ (axis cs:4,10);
+			 \addplot+[line width=0.1pt,domain=0:25,color=red, thick, smooth,samples=200,mark=none] (\x,{-(\g*\m/\k)*(exp(-\k*\x/\m)-1)});
+			\addplot+[domain=0:25,color=blue, thick, smooth,samples=200,mark=none,shift={(axis cs:0,29.25)}] (\x,{\g*(exp(-\k*10/\m)*\x}); %tangente
+			% \node [cadre,text width=2.5cm] at (axis cs:19,38)  {\scriptsize \centering Cas des frottements linéaires
+			% 		};
+
+
+
+
+	         \draw (axis cs:8.75,42.25) --++ (axis cs:0,0.5) (axis cs:8.75,42.25) --++ (axis cs:0,-0.5) node [shift=({axis cs:0,2})] {\tiny A'};
+		  \draw (axis cs:11.25,45.9) --++ (axis cs:0,0.75) (axis cs:11.25,45.9) --++ (axis cs:0,-0.25) node [shift=({axis cs:0,2})] {\tiny B'};
+
+
+
+
+
+		\draw [<->,dotted] (axis cs:8.75,41.25) -- (axis cs:11.25,41.25) node [midway,below,shift=({axis cs:0,1})]{\tiny $\delta t$};
+		\draw [<->,dotted] (axis cs:11.25,41.5) -- (axis cs:11.25,45.75)  node [midway,left,shift=({axis cs:0.25,0})]{\tiny $\delta v$};
+
+
+
+		 \end{axis}
+		\end{scope}
+
+		\end{scope}
+
+
+
+	 \draw [thick,-latex] (2.925,4.1) -- (9.2,2.75);
+
+
+
+		% \grid{15}
+		% 	\filldraw (0,0) circle (0.25cm);
+
+			\end{tikzpicture}
+			
+	 	   %------------------- Cx -------------  16
+			
+			
+			\begin{tikzpicture}[scale=1]
+				 \draw (-5,0) ellipse (0.25cm and 1cm);
+				 \draw (-5,1)--++(-0.4,0);
+				 \draw (-5,-1)--++(-0.4,0);
+				 \draw (-5.4,1) arc (90:270:0.25 and 1);
+				 \draw [->] (-5,0)--++(1.5,0) node [above] {$\overrightarrow{v}$};
+				 \node at (-5,-1.5) {$C_x = 1.32$};
+	 
+				 \draw (0,0) circle (1cm);
+				 \draw (0,1) arc (90:270:0.35 and 1);
+				 \draw [->] (0,0)--++(1.5,0) node [above] {$\overrightarrow{v}$};
+				 \node at (0,-1.5) {$C_x = 0.45$};
+	 
+				 \draw (5,1) arc (90:270:0.35 and 1);
+				 \draw (5,1) arc (90:-90:1);
+				 \draw (4.95,1.0)--++(-2,-1);
+				 \draw (4.95,-1.0)--++(-2,1);
+				 \draw [->] (5,0)--++(1.5,0) node [above] {$\overrightarrow{v}$};
+				 \node at (5,-1.5) {$C_x = 0.04$};
+			\end{tikzpicture}
+
+%--------------------- Pendule et base polaire -----------  17
+
+	\begin{tikzpicture}[scale=1] 
+% \node[,inner sep=0] at (0.75,4.05) {\includegraphics[scale=0.2]{capitaine.pdf}}; 
+	\fill [gray,opacity=0.4] (0,-0.5) rectangle (3,-0.35);
+	\draw (1.47,-0.35) rectangle (1.53,4);
+	% \filldraw [gray,opacity=0.4] (1,3.5) arc (-180:0:0.5);
+	% \draw [gray]  (1,3.5) -- (2,3.5);      
+	
+	\draw [->] (1.52,2.5) arc (-90:-45:0.7); 
+	\node at (1.85,2.3) {$\theta$}; 
+	
+	
+	%repère cartésien                                               
+	\node at (1.2,3.9) {O};
+	\draw [->,-stealth,thick] (0.5,3.6) --++ (3,0) node [above] {y};
+	\draw [->,-latex,thick] (1.5,3.6) --++ (0.75,0) node [below] {$\overrightarrow{u_y}$};
+	\draw [->,-stealth,thick] (1.5,4) --++ (0,-5) node [right] {x};
+	\draw [->,-latex,thick] (1.5,3.6) --++ (0,-0.75) node [left] {$\overrightarrow{u_x}$};		              
+	%fin
+
+	\draw node at (2.5,2.3) {$r$}; 
+
+	\filldraw [black] (1.5,3.6) circle (0.08cm);
+	\draw [black] (1.5,3.6) -- (3,1);
+	\draw [color=white,ball color=gray,smooth] (3,1) circle (0.2); 
+	\node at (2.5,0.75) {\scriptsize{M}} ;
+	% \draw [blue,->,-latex] (3,1) -- (3,0.2) node [left] {$\overrightarrow{P}$};
+	% \draw [red,->,-latex] (2.9,1.17) -- (2.48,1.9) node [right] {$\overrightarrow{T}$};    
+ 
+	 \draw [-latex, thick, blue] (3,1) --++ (-59:1) node [right] {$\overrightarrow{u_r}$};  
+	
+	 \draw [-latex,thick,blue] (3,1) --++ (31:1) node [right] {$\overrightarrow{u_{\theta}}$};   
+	
+	% \draw [dashed] (3,1)--++(0,2.6);                                               
+	% \draw [dashed] (3,1)--++(-1.5,0); 
+	\label{pendule_base_polaire}	                                              
+	\end{tikzpicture}
+
+
+	   %------------------- Régimes pseudo-périodiques -------------  18
+
+
+\begin{tikzpicture}[scale=1]
+%papier milli
+%\draw [very thin, gray!10] (0,-3) grid[step=0.1] (2.5*pi,3);
+%\draw [very thin, black!10] (0,-3) grid[step=0.5] (2.5*pi,3);
+%\draw [very thin, black!20] (0,-3) grid[step=1] (2.5*pi,3);
+%fin
+
+%axes
+\draw[->,>=stealth] (0,0) -- (2.6*pi,0) node[below right] {$t$};
+\draw[->,>=stealth] (0,-3) -- (0,3) node [above left] {$x$};
+%\draw (1,0.1) -- (1,-0.1) node [below right] {{\scriptsize $0.2$}}; %échelle abscisse
+%\draw (0.1,1) -- (-0.1,1) node [left] {{\scriptsize $2V$}}; %échelle ordonnée
+%fin
+
+%legende
+%\draw (-2,3) -- (-0.4,3) -- (-0.4,1.9) -- (-2,1.9) -- (-2,3); %cadre
+%\draw [red] (-1.8,2.7)--(-1.2,2.7) node [right] [red] {$V_E$};
+%\draw [blue] (-1.8,2.2)--(-1.2,2.2) node [right] [blue] {$V_S$};
+%fin
+
+\draw[color=blue,thick,domain=0:2.5*pi, samples=150,smooth] plot ({\x},{-2.5*exp(-\x/4)*cos(1.8*\x r + pi/2 r)}); 
+\draw[color=orange,thick,domain=0:2.5*pi, samples=150,smooth] plot ({\x},{2.5*exp(-\x/2)*sin(1.9*\x r + pi/2 r)});
+\draw[color=red,thick,domain=0:2.5*pi, samples=150,smooth] plot ({\x},{2.5*exp(-\x)*sin(2.0*\x r + pi/2 r)});
+    
+\draw (4.75,-1.25) rectangle++ (2.5,-1.5);
+\draw [blue] (5,-1.5) --++ (0.5,0) node [shift=({0.75,0})] {~: $\lambda = 1/4$};
+\draw [orange] (5,-2) --++ (0.5,0) node [shift=({0.75,0})] {~: $\lambda = 1/2$};
+\draw [red] (5,-2.5) --++ (0.5,0) node [shift=({0.55,0})] {~: $\lambda = 1$};        
+
+
+\draw[color=gray,thin,dotted,domain=0:2.5*pi, samples=150,smooth] plot ({\x},{2.5*exp(-\x/4)});
+\draw[color=gray,thin,dotted,domain=0:2.5*pi, samples=150,smooth] plot ({\x},{-2.5*exp(-\x/4)});
+
+%double flèche
+\draw[blue,line width=1pt,<->,>=triangle 45] (3.425,1.5) --++ (3.45,0) node [midway, below] {\colorbox{white}{\textcolor{blue}{\scriptsize{$T_\mathrm{\lambda = 1/4}$}}}} ;
+\draw[orange,line width=1pt,<->,>=triangle 45] (3.175,2.5) --++ (3.3,0) node [midway, above] {\colorbox{white}{\textcolor{orange}{\scriptsize{$T_\mathrm{\lambda = 1/2}$}}}} ;
+
+%pointillés
+\draw [very thin,blue!80, dashed] (3.425,0) --++ (0,1.75) (6.9,0) --++ (0,1.75);
+\draw [very thin,orange!80, dashed] (3.175,0) --++ (0,2.75) (6.475,0) --++ (0,2.75);
+\draw [very thin,gray!80, dashed] (-0.1,2.5) --++ (0.2,0) node [left=0.15cm, black] {\scriptsize{X}};
+\draw [very thin,gray!80, dashed] (0,-2.5) --++ (-0.1,0) node [left=0.07cm, black] {\scriptsize{-X}};
+\end{tikzpicture}
+
+	   %------------------- Régimes apériodiques -------------  19
+
+
+\begin{tikzpicture}[scale=1]
+% \def \lbd{2}
+\def \ome{1.8}
+% \def \rmoins{(-\lbd-(\lbd^2-\ome^2)^0.5)}
+% \def \rplus{(-\lbd+(\lbd^2-\ome^2)^0.5)}
+
+%papier milli
+%\draw [very thin, gray!10] (0,-3) grid[step=0.1] (2.5*pi,3);
+%\draw [very thin, black!10] (0,-3) grid[step=0.5] (2.5*pi,3);
+%\draw [very thin, black!20] (0,-3) grid[step=1] (2.5*pi,3);
+%fin
+
+%axes
+\draw[->,>=stealth] (0,0) -- (2.6*pi,0) node[below right] {$t$};
+\draw[->,>=stealth] (0,-1) -- (0,3) node [above left] {$x$};
+%\draw (1,0.1) -- (1,-0.1) node [below right] {{\scriptsize $0.2$}}; %échelle abscisse
+%\draw (0.1,1) -- (-0.1,1) node [left] {{\scriptsize $2V$}}; %échelle ordonnée
+%fin
+
+%legende
+%\draw (-2,3) -- (-0.4,3) -- (-0.4,1.9) -- (-2,1.9) -- (-2,3); %cadre
+%\draw [red] (-1.8,2.7)--(-1.2,2.7) node [right] [red] {$V_E$};
+%\draw [blue] (-1.8,2.2)--(-1.2,2.2) node [right] [blue] {$V_S$};
+%fin
+\foreach \lbd/\color in {2/blue, 3/orange, 4/red}
+{   
+ \def \rmoins{(-\lbd-(\lbd^2-\ome^2)^0.5)}
+\def \rplus{(-\lbd+(\lbd^2-\ome^2)^0.5)}
+
+\draw[color=\color,thick,domain=0:2.5*pi, samples=150,smooth] plot ({\x},{((2.5*\rmoins)*exp(\rplus*\x))/(\rmoins-\rplus)-((2.5*\rplus)*exp(\rmoins*\x)/(\rmoins-\rplus)});  
+}     
+\draw (3.75,1.75) rectangle++ (2.5,1.5);
+\draw [blue] (4,3) --++ (0.5,0) node [shift=({0.75,0})] {: $\lambda = 2$};
+\draw [orange] (4,2.5) --++ (0.5,0) node [shift=({0.75,0})] {: $\lambda = 3$};
+\draw [red] (4,2) --++ (0.5,0) node [shift=({0.75,0})] {: $\lambda = 4$};
+
+%pointillés
+
+\draw [very thin,gray!80, dashed] (-0.1,2.5) --++ (0.2,0) node [left=0.15cm, black] {\scriptsize $x_m$};
+
+\end{tikzpicture}
+
+
+%------------------ Ressort horizontal dans trois situations ---------------  20
+
+		\begin{tikzpicture}[scale=0.8]
+		%\grid{5}{5}  
+
+	%--------------------ressort central---------------------	
+	\coordinate (O) at (0,-2.75); 
+	\draw [->] (-4.5,-2.75) -- (3,-2.75) ;
+	 % \draw [->,-latex] (O) --++ (1.25,0.25) node [above] {$z$} ;
+
+
+
+	%ressort   
+	\begin{scope}[shift=({0,-2.75})]     
+
+	\begin{scope}[scale=0.75,shift=({-4.78,0.5}),rotate around={90:(0,0)}]
+	  %bloc qui tient le ressort
+		\draw[thick,gray] (0,0) -- (0,-0.3); 
+		\fill [pattern=north east lines] (-0.5,0) rectangle (0.5,0.3); 
+		\draw[thick](-0.5,0)--(0.5,0);
+		%fin ressort       
+	\end{scope}	
+
+
+	 \draw [ressort,decorate,decoration={coil,aspect=0.4,segment length=3mm,amplitude=3mm}] (-3.375,0.36)--++(3,0) ;
+	\draw[rounded corners=4pt,fill=gray!30] (-0.375,0) rectangle++ (0.75,0.75) node [midway, shift=({0,0.05})] {$\centerdot$};  
+
+	 %repérage de \ell
+	\draw [|<->|] (-3.6,1) -- (-0.4,1) node [midway,above] {$\ell_0$};    
+
+	\end{scope}
+	%--------------------FIN ressort central---------------------	
+
+
+	%----------ressort comprimé------------
+	\coordinate (M) at (-1,0.36);
+	\draw (O) --++ (0,0.1) (O) --++ (0,-0.1) node [below right] {O}; 
+    
+	\node[draw, circle] at (4,0.4) {1};  
+
+	%Axe
+	\draw [->] (-4.5,0) -- (3,0) ;  
+
+	%repérage de x
+	\draw [|<-] (-1,-1) -- (0,-1) node [midway,below] {\scriptsize  $x<0$};
+
+	%repérage de \ell
+	\draw [|<->|] (-3.6,1) -- (-1.4,1) node [midway,above] {$\ell$};
+
+	\begin{scope}[scale=0.75,shift=({-4.78,0.5}),rotate around={90:(0,0)}]
+	  %bloc qui tient le ressort
+		\draw[thick,gray] (0,0) -- (0,-0.3); 
+		\fill [pattern=north east lines] (-0.5,0) rectangle (0.5,0.3); 
+		\draw[thick](-0.5,0)--(0.5,0);
+		%fin ressort       
+	\end{scope}	   
+
+	%ressort  
+	\draw [ressort,decorate,decoration={coil,aspect=0.3,segment length=1.5mm,amplitude=3mm}] (-3.375,0.36)--++(2,0) ;
+	\draw[rounded corners=4pt,fill=gray!30] (-1.375,0) rectangle++ (0.75,0.75) node [midway, shift=({0,0.05})] {$\centerdot$}; 
+
+	\draw [->,-stealth,thick,blue] (M) --++(0,-1) node [left] {$\overrightarrow{P}$};   
+	\draw [->,-stealth,thick,green!50!black] (M)++(0,-0.35) --++(0,+1) node [right] {$\overrightarrow{R}$};   
+	\draw [->,-stealth,thick,red] (M)++(-0.375,0)--++(1.5,0) node [above] {$\overrightarrow{F}$};     
+	%----------FIN ressort comprimé------------ 
+
+	%----------ressort etiré------------
+
+	\begin{scope}[shift=({0,-5.5})]
+
+	\coordinate (M) at (1,0.36);
+	\draw (O) --++ (0,0.1) (O) --++ (0,-0.1) node [below right] {O}; 
+     
+	\node[draw, circle] at (4,0.4) {2};
+   
+
+	%Axe
+	\draw [->] (-4.5,0) -- (3,0) ;  
+
+	%repérage de x
+	\draw [->|] (0,1.75) -- (1,1.75) node [midway,below] {\scriptsize $x>0$};
+
+	%repérage de \ell
+	\draw [|<->|] (-3.6,1) -- (0.6,1) node [midway,above] {$\ell$};
+
+	\begin{scope}[scale=0.75,shift=({-4.78,0.5}),rotate around={90:(0,0)}]
+	  %bloc qui tient le ressort
+		\draw[thick,gray] (0,0) -- (0,-0.3); 
+		\fill [pattern=north east lines] (-0.5,0) rectangle (0.5,0.3); 
+		\draw[thick](-0.5,0)--(0.5,0);
+		%fin ressort       
+	\end{scope}	   
+
+	%ressort  
+	\draw [ressort,decorate,decoration={coil,aspect=0.5,segment length=5mm,amplitude=3mm}] (-3.375,0.36)--++(4,0) ; 
+
+	 \draw[rounded corners=4pt,fill=gray!30] (0.625,0) rectangle++ (0.75,0.75) node [midway, shift=({0,0.05})] {$\centerdot$}; 
+
+	\draw [->,-stealth,thick,blue] (M) --++(0,-1) node [right] {$\overrightarrow{P}$};   
+	\draw [->,-stealth,thick,green!50!black] (M)++(0,-0.35) --++(0,+1) node [right] {$\overrightarrow{R}$};   
+	\draw [->,-stealth,thick,red] (M)++(-0.375,0)--++(-1.5,0) node [above=-1] {$\overrightarrow{F}$};	
+
+
+	\end{scope}    
+	%----------FIN ressort etiré------------
+
+	\draw [dotted] (-1,0) --++(0,-2.75);  
+	\draw [dotted] (1,-2.75) --++(0,-2.75);  
+	\draw [dotted] (0,0) --++(0,-5.5);  
+
+
+	   \end{tikzpicture} 
+	  
+	 %----------------- Energie potentielle et positions d'équilibre ----------------- 21
+	
+	\begin{tikzpicture}[scale=1.25]
+		
+	  \draw [->,-stealth] (-0.5,0) --++ (5,0) node [below] {$x$}; 
+	    \draw [->,-stealth] (0,-0.5) --++ (0,3) node [left] {$E_\mathrm{P}$}; 
+   
+\draw (0.5,2) .. controls (1,0) and (2,0) .. (4.5,2);
+\draw [dashed] (1.75,0) node [below] {$x_0$} --++(0,0.5);
+
+\begin{scope}[shift=({7,0})]
+ 	\draw [->,-stealth] (-0.5,0) --++ (5,0) node [below] {$x$}; 
+	    \draw [->,-stealth] (0,-0.5) --++ (0,3) node [left] {$E_\mathrm{P}$}; 
+   
+\draw (0.5,0.5) .. controls (1,3) and (2,3) .. (4.5,0.5);
+\draw [dashed] (1.75,0) node [below] {$x_0$} --++(0,2.35);   
+\end{scope}                     
+
+
+	 	\end{tikzpicture}
+
+%-------------Moment cinétique /à un pt---------  22
+
+\begin{tikzpicture}[scale=1]
+\draw (0,0) circle (0.15cm);
+\fill [black] (0,0) circle (0.05cm);
+\node at (0,0) [below] {O};
+\node at (0,0) [above] {$\overrightarrow{L_O}(M)$};
+ \node at (2,0.5) [] {$\bullet$};
+ \node at (2,0.5) [below] {M (m)};
+\draw [->,thick] (2,0.5) --++ (0.5,1) node [right] {$\overrightarrow{v}$};
+\draw[dashed] (0,0) -- (2,0.5)--++($0.5*(2,0.5)-0.5*(0,0)$) ;
+\draw (2.2,0.9) to [bend left] (2.4,0.6);
+ \node at (2.5,0.9) [] {$\alpha$};
+\end{tikzpicture}
+
+%-------------Moment cinétique /à un axe---------  23
+
+
+\begin{tikzpicture}[scale=1]
+%\helpgrid{8}{5}
+%\node at (0,0) {$\bullet$};
+\draw [thick] (0,-1) -- (0,3) node [above] {$(\Delta)$};
+\node at (0,0) [below left] {O};
+\draw [->,thick,>=stealth] (0,0) --++ (2,1.5) node [midway, below right] {$\overrightarrow{L_O}(M)$};
+\draw[dashed] (0,1.5) -- (2,1.5);
+\draw [|->,thick] (0,2) --++ (0,0.5) node [midway, right]  {$\overrightarrow{u_{\Delta}}$};
+\draw  [thick,red] (0,0) -- (0,1.5) node [midway, left] {$L_{\Delta}$};
+\end{tikzpicture}
+
+%-------------Moment de force /à un pt---------  24
+
+
+\begin{tikzpicture}[scale=1]
+%\helpgrid{4}{2}
+\filldraw [black] (0,-1) circle (0.035cm) node [below] {O};
+\draw (0,-1) circle (0.15cm) node [above]  {$\overrightarrow{\mathcal{M}_O}(\overrightarrow{F})$};
+\filldraw [black] (2.5,0.0) circle (0.035cm) node [below right] {M};
+\draw[black,thick,-latex] (2.5,0.0) --++ (0.25,1.5) node [above right] {$\overrightarrow{F}$};
+\draw[dashed] (2.5,0.0) --++ (-0.25,-1.5)--++($0.25*(2.5,0)-0.25*(2.75,1.5)$);
+\draw[dashed] (0,-1)--(2.3,-1.3) node[below,midway] {\scriptsize d};
+ \draw (2.6,0.4) to [bend left=40] (2.9,0.2);
+\draw node at (3,0.5) {$\theta$};
+% \draw (0.6,-0.775) to [bend left=40] (0.6,-1.1);
+%\draw node at (0.9,-0.9) {$\alpha$};
+\begin{scope}[xshift=5cm,yscale=-1,xscale=-1]
+\draw (2.6,0.4) to [bend left=40] (2.9,0.2);
+\draw node at (3,0.5) {$\theta$};
+\end{scope}
+
+\draw [dashed] (0,-1) -- (2.5,0)--++($0.5*(2.5,0)-0.5*(0,-1)$);
+\draw (2.125,-1.275)--(2.15,-1.125)--(2.3,-1.15);
+\node at (2.5,-1.5) {H};
+\end{tikzpicture}
+
+%-------------pendule simple---------  25
+
+\begin{tikzpicture}[scale=1]
+%\helpgrid{4}{2}
+\filldraw [black] (2.5,4) circle (0.035cm) ;
+\node at (3,4) {$\overrightarrow{u_z}$};
+\draw (2.5,4) circle (0.15cm);
+\fill [gray,opacity=0.4] (0,-0.5) rectangle (3,-0.35);
+\draw (1.47,-0.35) rectangle (1.53,4);
+%\filldraw [gray,opacity=0.4] (1,3.5) arc (-180:0:0.5);
+\draw [->,-latex](1.5,2.5) arc (-90:-45:0.7);
+\draw node at (1.8,2.3) {$\theta$};
+%\draw [gray]  (1,3.5) -- (2,3.5);
+\draw node at (2.2,2.0) {$\ell$};
+\filldraw [black] (1.5,3.6) circle (0.08cm) node [left] {O};
+\draw [black] (1.5,3.6) -- (3,1);
+\draw [color=white,ball color=gray,smooth] (3,1) circle (0.2);
+\node at (2.7,0.7) [black] {\scriptsize{M}} ;
+\draw [blue,->,-latex] (3,1) -- (3,0) node [left] {$\overrightarrow{P}$};
+\draw [red,->,-latex] (2.9,1.17) -- (2.48,1.9) node [right] {$\overrightarrow{T}$};
+\draw [dashed,-latex] (3,1) -- (3.4,0.4) node [below] {$\overrightarrow{u_r}$};
+\draw [dashed,-latex] (3,1) -- (3.5,1.3) node [right] {$\overrightarrow{u_{\theta}}$};
+\end{tikzpicture}
+
+%----------------définition d'une force centrale----------------  26
+\begin{tikzpicture}[scale=1]
+%papier milli
+%\draw [very thin, gray!20] (-3,-3) grid[step=0.1] (3,3);
+%\draw [very thin, black!20] (-3,-3) grid[step=0.5] (3,3);
+%\draw [very thin, black!40] (-3,-3) grid[step=1] (3,3);
+%\node at (0,0) {$\bigstar$};
+
+\coordinate (O) at (0,0) node [left=0.2] {O};
+\coordinate (M) at (1.5,1.5) ;
+
+\draw [->,-latex] (O) --++ (-1,-1) node [left]{x};
+\draw [->,-latex] (O) --++ (2,0) node [right]{y};
+\draw [->,-latex] (O) --++ (0,2) node [above]{z};
+
+\node at (M) {$\bullet$};
+\node at (M) [below right] {M};
+
+\draw [dotted] (O) -- (M);
+\draw [red,->,thick] (M) --++($-0.5*(M)+0.5*(O)$) node [below right] {$\overrightarrow{F}$};
+\draw [blue,->,thick] (M) --++($0.25*(M)-0.25*(O)$) node [above] {$\overrightarrow{u_r}$};
+\end{tikzpicture}
+
+
+%----------------Loi des aires élémentaire------------------  27
+
+
+\begin{tikzpicture}[scale=1]
+%papier milli
+%\draw [very thin, gray!20] (-3,-3) grid[step=0.1] (3,3);
+%\draw [very thin, black!20] (-3,-3) grid[step=0.5] (3,3);
+%\draw [very thin, black!40] (-3,-3) grid[step=1] (3,3);
+%\node at (0,0) {$\bigstar$};
+
+\coordinate (O) at (0,0) node [left=0.2] {O};
+\coordinate (M) at (1.5,1) ;
+
+\draw [->,-latex] (O) --++ (2,0) node [right]{x};
+\draw [->,-latex] (O) --++ (0,2) node [above]{y};
+
+
+
+\node at (M) [below right] {M};
+
+\fill [gray!40] (O) -- (M) -- (1.15,1.45) --cycle;
+
+\node at (M) {$\bullet$};
+\draw [] (O) -- (M);
+\draw  (0.55,0) to [bend right=45] (0.5,0.32);
+\node at (0.75,0.2) {$\theta$};
+
+\draw (M) -- (1.15,1.45);
+\draw (1.15,1.45)--(O);
+
+\node at (1.05,1) {$d\mathcal{A}$};
+\node at (1,0.5) {$r$};
+
+\draw [<->,blue] (M)++(0.15,0.15) -- (1.3,1.6);
+\node at (1.8,1.5) [blue] {$v\,dt$};
+\end{tikzpicture}
+
+%----------------courbe énergie potentielle effective répulsion------------------  28
+
+\begin{tikzpicture}[scale=1]
+ \draw[->] (0,0) -- (8,0);
+\draw[->] (0,0) -- (0,5);
+%\draw [very thin, gray] (0,0) grid[step=0.2] (4.4,4.2);
+\draw [domain=1:8,smooth, samples=200] plot (\x,{3/\x + 3/(2*\x^2)});
+\draw (0,5) node [left] {$E_{\mathrm{Peff}}(r)$};
+\draw (8,0) node [below] {r};
+\draw (0,0) node [below left] {O};
+\draw (0,2.5) node [left] {$E_\mathrm{M}$};
+\draw [domain=0:8] plot (\x,{2.5});
+\draw [dashed] (1.6,0) -- (1.6,2.5) ;
+\draw (1.6,0) node [below] {$r_{\mathrm{min}}$};
+\fill[color=gray!70, opacity=0.5] (0,-0.1) rectangle (1.6,0.1);
+\end{tikzpicture}
+
+%----------------état de diffusion répulsion------------------  29
+
+\begin{tikzpicture}[scale=1]
+%papier milli
+%\draw [very thin, gray!20] (-3,-3) grid[step=0.1] (3,3);
+%\draw [very thin, black!20] (-3,-3) grid[step=0.5] (3,3);
+%\draw [very thin, black!40] (-3,-3) grid[step=1] (3,3);
+%\node at (0,0) {$\bigstar$};
+
+\coordinate (O) at (0,-0.5);
+\node at (0,-0.5) [left=0.2] {O};
+\node at (0,-0.5) {$\bullet$};
+\coordinate (M) at (1.5,1) ;
+
+\tikzstyle directed=[postaction={decorate,decoration={markings,
+    mark=at position .25 with {\arrow[arrowstyle]{stealth}}}}] ;
+\tikzstyle directed2=[postaction={decorate,decoration={markings,
+    mark=at position .75 with {\arrow[arrowstyle]{stealth}}}}] ;
+
+\tikzstyle arrowstyle=[scale=1.5];
+
+\draw[red,thick, directed] (1.0,2.5) .. controls (0.75,0.25) and (0.75,0.25) .. (3,0.5);
+\draw[red,thick, directed2] (1.0,2.5) .. controls (0.75,0.25) and (0.75,0.25) .. (3,0.5);
+
+
+
+\draw [<->] (O)++(0.1,0.1) -- (1,0.5);
+
+\node at (0.9,-0.1) [] {$r_{\mathrm{min}}$};
+
+\node at (2,1.25)[text width=1.5cm,text height=0.25cm,text centered, color=red] {  Trajectoire de M};
+
+\end{tikzpicture}
+
+%----------------courbe énergie potentielle effective attraction--------------   30
+
+
+\begin{tikzpicture}[scale=1,xscale=2]
+ \draw[->] (-1,0) -- (5,0);
+\draw[->] (0,-2) -- (0,5);
+%\draw [very thin, gray] (0,0) grid[step=0.2] (4.4,4.2);
+\draw [domain=0.335:5,smooth, samples=200] plot (\x,{-3.2/\x + 3.2/(2*\x^2)});
+\draw (0,5) node [left] {$E_{\mathrm{Peff}}(r)$};
+\draw (5,0) node [right] {r};
+\draw (0,0) node [below left] {O};
+\draw (0,2.5) node [left] {$E_\mathrm{M}$};
+\draw [domain=0:5] plot (\x,{2.5});
+\draw [dashed] (0.38,0) -- (0.38,2.5) ;
+\draw (0.38,0) node [below] {$r_1$};
+\fill[color=gray!70, opacity=0.5] (0,-0.1) rectangle (0.5,0.1);
+\fill[color=gray!70, opacity=0.5] (2,-0.1) rectangle (4.95,0.1);
+\draw [domain=0:5] plot (\x,{-1.2});
+\draw (0,-1.2) node [left] {$E_\mathrm{M}$};
+
+\draw [dashed] (0.665,-1.2) --++ (0,1.2) ;
+\node at (0.7,0) [above] {$r_{\mathrm{min}}$};
+
+\draw [dashed] (2,-1.2) --++ (0,1.2) ;
+\node at (2,0) [above] {$r_{\mathrm{max}}$};
+
+\draw [dashed] (1,-1.6) --++ (0,1.6) ;
+\node at (1.0,0) [above] {$r_{0}$};
+\end{tikzpicture}
+
+%----------------état de diffusion attraction------------------  31
+
+\begin{tikzpicture}[scale=1]
+%papier milli
+%\draw [very thin, gray!20] (-3,-3) grid[step=0.1] (3,3);
+%\draw [very thin, black!20] (-3,-3) grid[step=0.5] (3,3);
+%\draw [very thin, black!40] (-3,-3) grid[step=1] (3,3);
+%\node at (0,0) {$\bigstar$};
+
+\coordinate (O) at (0.4,-0.15);
+\node at (O) [left=0.2] {O};
+\node at (O) {$\bullet$};
+\coordinate (M) at (1.5,1) ;
+
+\tikzstyle directed=[postaction={decorate,decoration={markings,
+    mark=at position .25 with {\arrow[arrowstyle]{stealth}}}}] ;
+\tikzstyle directed2=[postaction={decorate,decoration={markings,
+    mark=at position .75 with {\arrow[arrowstyle]{stealth}}}}] ;
+
+\tikzstyle arrowstyle=[scale=1.5];
+
+\begin{scope}[rotate around={180:(1,0.5)}]
+\draw[red,thick, directed] (1.0,2.5) .. controls (0.75,0.25) and (0.75,0.25) .. (3,0.5);
+\draw[red,thick, directed2] (1.0,2.5) .. controls (0.75,0.25) and (0.75,0.25) .. (3,0.5);
+\end{scope}
+
+
+
+\draw [<->] (O)++(0.1,0.1) -- (0.9,0.4);
+
+\node at (0.8,0.1) [shift=({0.1,-0.1})] {$r_{1}$};
+
+\node at (2,-0.75)[text width=1.5cm,text height=0.25cm,text centered,red] {Trajectoire de M};
+
+\end{tikzpicture}
+
+%----------------Etat lié------------------  32
+
+\begin{tikzpicture}[scale=1]
+%papier milli
+%\draw [very thin, gray!20] (-3,-3) grid[step=0.1] (3,3);
+%\draw [very thin, black!20] (-3,-3) grid[step=0.5] (3,3);
+%\draw [very thin, black!40] (-3,-3) grid[step=1] (3,3);
+%\node at (0,0) {$\bigstar$};
+
+\coordinate (O) at (0.75,0);
+\node at (O) {$\bullet$};
+\node at (O) [below] {O};
+
+\draw [dashed,<->] (-1.95,0) -- (0.65,0);
+\node at (-0.75,0) [below] {$r_{\mathrm{max}}$};
+
+\draw [dashed,<->] (0.85,0) -- (1.95,0);
+\node at (1.35,0) [below] {$r_{\mathrm{min}}$};
+
+\draw [simple] (2,0) arc (0:90:2cm and 1.5cm);
+\draw [simple] (0,1.5) arc (-270:-180:2cm and 1.5cm);
+\draw [simple] (-2,0) arc (-180:-90:2cm and 1.5cm);
+\draw [simple] (0,-1.5) arc (-90:0:2cm and 1.5cm);
+\end{tikzpicture}
+
+
+%----------------ellipse------------------  33
+
+\begin{tikzpicture}[scale=1]
+%papier milli
+% \draw [very thin, gray!20] (-3,-3) grid[step=0.1] (3,3);
+% \draw [very thin, black!20] (-3,-3) grid[step=0.5] (3,3);
+% \draw [very thin, black!40] (-3,-3) grid[step=1] (3,3);
+% \node at (0,0) {$\bigstar$};
+
+\coordinate (O) at (1,0); %c=1.5 ; p = b*b/a ; 
+\coordinate (A) at (-2,0);
+\coordinate (P) at (2,0);
+\coordinate (M) at (1.5,1);
+
+\node at (O) {$\bullet$};
+\node at (O) [below] {O};
+
+\node at (A) {$\bullet$};
+\node at (A) [below left] {A};
+
+\node at (P) {$\bullet$};
+\node at (P) [below right] {P};
+
+\node at (M) {$\bullet$};
+\node at (M) [above right] {M};
+
+\draw (O)--(M);
+\draw  (1.3,0) to [bend right=45] (1.15,0.3);
+\node at (1.45,0.25) {$\theta$};
+
+\draw [dashed,<->] (-1.95,0) -- (0.95,0);
+\node at (-0.75,0) [below] {$r_{\mathrm{a}}$};
+
+\draw [dashed,<->] (1.05,0) -- (1.95,0);
+\node at (1.4,0) [below] {$r_{\mathrm{p}}$};
+
+\draw [] (0,0) ellipse (2cm and 1.5cm);
+
+\node at (1.1,0.5) {$r$};
+
+\draw [dotted] (A) --++ (0,-1.75);
+\draw [dotted] (P) --++ (0,-1.75);
+\draw [<->,dashed] (-2,-1.75) -- (2,-1.75) node [below,midway] {$2a$};
+
+\draw [dotted] (0,1.5) --++ (2.5,0);
+\draw [dotted] (0,-1.5) --++ (2.5,0);
+\draw [<->,dashed] (2.5,1.5) -- (2.5,-1.5) node [right,midway] {$2b$};
+
+\end{tikzpicture}
+
+%----------------forces problème à deux corps---------------  34
+
+
+\begin{tikzpicture}[scale=1]
+
+%\draw [very thin, gray!20] (-3,-3) grid[step=0.1] (3,3);
+%\draw [very thin, black!20] (-3,-3) grid[step=0.5] (3,3);
+%\draw [very thin, black!40] (-3,-3) grid[step=1] (3,3);
+%\node at (0,0) {$\bigstar$};
+
+\draw [->] (-2,-2) --++ (1,0);
+\draw [->] (-2,-2) --++ (0,1);
+\draw [->] (-2,-2) --++ (-0.65,-0.65);
+\node at (-2.5,-1.75) {$(\mathcal{R})$};
+\node at (-2,-2) [below right] {O};
+
+\coordinate (M1) at (-1,-0.5);
+\node at (-1,-0.5) {$\bullet$};
+\node at (-1,-0.5) [below right] {$\mathrm{M}_1(m_1)$};
+\draw [->,-latex] (-1,-0.5)--++(-0.5,1.5) node [left] {$\overrightarrow{v_1}$};
+
+\coordinate (M2) at (1.5,0.5);
+\node at (1.5,0.5) {$\bullet$};
+\node at (1.5,0.5) [below right] {$\mathrm{M}_2(m_2)$};
+\draw [->,-latex] (1.5,0.5)--++(1,1.25) node [right] {$\overrightarrow{v_2}$};
+
+\draw [red,->,-stealth] (M1)--++($-0.3*(M1)+0.3*(M2)$) node [above] {\scriptsize $\overrightarrow{f_{2/1}}$}; 
+\draw [red,->,-stealth] (M2)--++($-0.3*(M2)+0.3*(M1)$) node [below] {\scriptsize $\overrightarrow{f_{1/2}}$}; 
+\end{tikzpicture}
+
+
+%----------------PFD référentiel barycentrique------------------  35
+
+
+\begin{tikzpicture}[scale=1]
+
+%\draw [very thin, gray!20] (-3,-3) grid[step=0.1] (3,3);
+%\draw [very thin, black!20] (-3,-3) grid[step=0.5] (3,3);
+%\draw [very thin, black!40] (-3,-3) grid[step=1] (3,3);
+%\node at (0,0) {$\bigstar$};
+
+\coordinate (O) at (0,-0.1);
+
+\begin{scope}[opacity=0.5]
+\draw [->] (O) --++ (1,0);
+\draw [->] (O) --++ (0,1);
+\draw [->] (O) --++ (-0.65,-0.65);
+\node at (-0.5,1) {$(\mathcal{R^*})$};
+\node at (O) [below right] {G};
+\end{scope}
+
+
+\coordinate (M1) at (-1,-0.5);
+\node at (-1,-0.5) {$\bullet$};
+\node at (-1,-0.5) [below left] {$\mathrm{M}_1(m_1)$};
+
+
+\coordinate (M2) at (1.5,0.5);
+\node at (1.5,0.5) {$\bullet$};
+\node at (1.5,0.5) [below right] {$\mathrm{M}_2(m_2)$};
+
+\draw [dashed] (M1)--(M2);
+
+\draw [red,->,-stealth] (M1)--++($-0.3*(M1)+0.3*(M2)$) node [above left] {\scriptsize $\overrightarrow{f_{2/1}}$}; 
+\draw [red,->,-stealth] (M2)--++($-0.3*(M2)+0.3*(M1)$) node [above] {\scriptsize $\overrightarrow{f_{1/2}}$}; 
+\end{tikzpicture}
+
+
+%----------------collision plane------------------  36
+
+\begin{tikzpicture}[scale=1]
+%\draw [very thin, gray!20] (0,0) grid[step=0.1] (10,6);
+%\draw [very thin, black!20] (0,0) grid[step=0.5] (10,6);
+%\draw [very thin, black!40] (0,0) grid[step=1] (10,6);
+%\node at (0,0) {$\bigstar$};
+
+\draw[dashed] (-1,3)--++(5,0);
+
+\fill (0,3) circle (0.1cm); 
+\node at (0,3) [below] {\footnotesize $m_1$};
+\draw [->,thick] (0,3)--++(1.5,0) node [above] {$\overrightarrow{p_1}$};
+
+
+\node at (2,3) {$\bullet$};
+\node at (2,3) [below] {\footnotesize $m_2$};
+
+\fill (2.5,2.75) circle (0.1cm); 
+\draw [->,thick] (2.5,2.75)--++($2*(2.5,2.75)-2*(2,3)$) node [below]  {$\overrightarrow{p'_1}$};
+
+\node at (2.75,3.75) {$\bullet$};
+\draw [->,thick] (2.75,3.75)--++($0.7*(2.75,3.75)-0.7*(2,3)$) node [below]  {$\overrightarrow{p'_2}$};
+
+\begin{scope}[shift=({2.25,-0.75)})]
+\draw [->,thick] (2.75,3.75)--++($0.7*(2.75,3.75)-0.7*(2,3)$) node [above]  {$\overrightarrow{p'_2}$};
+\end{scope}
+\begin{scope}[shift=({3.25,-1.25)})]
+\draw [->,dashed] (2.75,3.75)--++($0.7*(2.75,3.75)-0.7*(2,3)$);
+\end{scope}
+
+\begin{scope}[shift=({2.5,0.25)})]
+\draw [->,thick] (2.5,2.75)--++($2*(2.5,2.75)-2*(2,3)$) node [below]  {$\overrightarrow{p'_1}$};
+\end{scope}
+
+\begin{scope}[shift=({5,0)})]
+\draw [->,thick] (0,3)--++(1.5,0) node [above] {$\overrightarrow{p_1}$};
+\end{scope}
+
+\end{tikzpicture}
+
+%----------------Collision directe------------------  37
+
+
+\begin{tikzpicture}[scale=1]
+%papier milli
+%\draw [very thin, gray!20] (0,0) grid[step=0.1] (10,6);
+%\draw [very thin, black!20] (0,0) grid[step=0.5] (10,6);
+%\draw [very thin, black!40] (0,0) grid[step=1] (10,6);
+%\node at (0,0) {$\bigstar$};
+
+\draw[dashed] (-1,3)--++(10,0);
+
+\fill (0,3) circle (0.1cm); 
+\node at (0,3) [below] {\footnotesize $m_1$};
+\draw [->,thick] (0,3)--++(1.25,0) node [above] {$\overrightarrow{p_1}$};
+
+
+\node at (2,3) {$\bullet$};
+\node at (2,3) [below] {\footnotesize $m_2$};
+\draw [->,thick] (2,3)--++(0.75,0) node [above] {$\overrightarrow{p_2}$};
+
+\draw  (3.5,2) to [bend left=25]++ (0,2);
+\node at (4,3) [fill=white] {\footnotesize collision};
+\draw  (4.5,2) to [bend right=25]++ (0,2);
+
+\fill (5.5,3) circle (0.1cm); 
+
+\draw [->,thick] (5.5,3)--++(0.66,0) node [above] {$\overrightarrow{p'_1}$};
+
+
+\node at (7,3) {$\bullet$};
+\draw [->,thick] (7,3)--++(1.33,0) node [above] {$\overrightarrow{p'_2}$};
+\end{tikzpicture}
+
+%----------------choc 1 gros------------------  38
+
+
+\begin{tikzpicture}[scale=1]
+%papier milli
+%\draw [very thin, gray!20] (0,0) grid[step=0.1] (10,6);
+%\draw [very thin, black!20] (0,0) grid[step=0.5] (10,6);
+%\draw [very thin, black!40] (0,0) grid[step=1] (10,6);
+%\node at (0,0) {$\bigstar$};
+
+\draw[dashed] (-1,3)--++(12,0);
+
+\fill (0,3) circle (0.3cm); 
+\node at (0,3) [below=0.25] {\footnotesize $m_1$};
+\draw [->,thick] (0,3)--++(1.25,0) node [above] {$\overrightarrow{v_1}$};
+
+\node at (2,3) {$\bullet$};
+\node at (2,3) [below=0.25] {\footnotesize $m_2$};
+
+\node at (1,2) {\textsc{avant}};
+
+\draw  (3.5,2) to [bend left=25]++ (0,2);
+\node at (4,3) [fill=white] {\footnotesize collision};
+\draw  (4.5,2) to [bend right=25]++ (0,2);
+
+\fill (5.5,3) circle (0.3cm); 
+\draw [->,thick] (5.5,3)--++(1.25,0) node [above] {$\overrightarrow{v'_1}$};
+
+\node at (7.5,2) {\textsc{apres}};
+
+\node at (8,3) {$\bullet$};
+\draw [->,thick] (8,3)--++(2.50,0) node [above] {$\overrightarrow{v'_2}$};
+\end{tikzpicture}
+
+
+%----------------choc 2 gros------------------  39
+
+\begin{tikzpicture}[scale=1]
+%papier milli
+%\draw [very thin, gray!20] (0,0) grid[step=0.1] (10,6);
+%\draw [very thin, black!20] (0,0) grid[step=0.5] (10,6);
+%\draw [very thin, black!40] (0,0) grid[step=1] (10,6);
+%\node at (0,0) {$\bigstar$};
+
+\draw[dashed] (-1,3)--++(10,0);
+
+\node at (0,3) {$\bullet$};
+\node at (0,3) [below=0.25] {\footnotesize $m_1$};
+\draw [->,thick] (0,3)--++(1.25,0) node [above] {$\overrightarrow{v_1}$};
+
+
+\fill (2,3) circle (0.3cm); 
+\node at (2,3) [below=0.25] {\footnotesize $m_2$};
+
+\node at (1,2) {\textsc{avant}};
+
+\draw  (3.5,2) to [bend left=25]++ (0,2);
+\node at (4,3) [fill=white] {\footnotesize collision};
+\draw  (4.5,2) to [bend right=25]++ (0,2);
+
+\node at (6.5,3) {$\bullet$}; 
+\draw [->,thick] (6.5,3)--++(-1.25,0) node [above] {$\overrightarrow{v'_1}$};
+
+\node at (7,2) {\textsc{apres}};
+
+\fill (8,3) circle (0.3cm); 
+\end{tikzpicture}
+
+
+%----------------choc même taille------------------  40
+
+\begin{tikzpicture}[scale=1]
+%papier milli
+%\draw [very thin, gray!20] (0,0) grid[step=0.1] (10,6);
+%\draw [very thin, black!20] (0,0) grid[step=0.5] (10,6);
+%\draw [very thin, black!40] (0,0) grid[step=1] (10,6);
+%\node at (0,0) {$\bigstar$};
+
+\draw[dashed] (-1,3)--++(11,0);
+
+\fill (0,3) circle (0.15cm); 
+\node at (0,3) [below=0.25] {\footnotesize $m_1$};
+\draw [->,thick] (0,3)--++(1.25,0) node [above] {$\overrightarrow{v_1}$};
+
+
+\fill (2,3) circle (0.15cm); 
+\node at (2,3) [below=0.25] {\footnotesize $m_2$};
+
+\node at (1,2) {\textsc{avant}};
+
+\draw  (3.5,2) to [bend left=25]++ (0,2);
+\node at (4,3) [fill=white] {\footnotesize collision};
+\draw  (4.5,2) to [bend right=25]++ (0,2);
+
+\fill (6,3) circle (0.15cm); 
+
+\node at (7,2) {\textsc{apres}};
+
+\fill (8,3) circle (0.15cm); 
+\draw [->,thick] (8,3)--++(1.25,0) node [above] {$\overrightarrow{v'_2}$};
+\end{tikzpicture}
+
+%----------------collision 2D------------------  41
+
+\begin{tikzpicture}[scale=1]
+%\draw [very thin, gray!20] (0,0) grid[step=0.1] (10,6);
+%\draw [very thin, black!20] (0,0) grid[step=0.5] (10,6);
+%\draw [very thin, black!40] (0,0) grid[step=1] (10,6);
+%\node at (0,0) {$\bigstar$};
+
+\draw[thin,->,-stealth] (-1,3)--++(5,0) node [right] {x} ;
+\draw[thin] (-1,3)--++(0,-2) ;
+\draw[thin,->,-stealth] (-1,3)--++(0,2) node [above] {y} ;
+\node at (-1,3) [below left] {O};
+\fill (0,3) circle (0.1cm); 
+\node at (0,3) [below] {\footnotesize $m_1$};
+\draw [->,thick] (0,3)--++(1.5,0) node [above] {$\overrightarrow{p_1}$};
+
+
+\node at (2,3) {$\bullet$};
+\node at (2,3) [below] {\footnotesize $m_2$};
+
+\fill (2.5,2.75) circle (0.1cm); 
+\draw [->,thick] (2.5,2.75)--++($2*(2.5,2.75)-2*(2,3)$) node [below]  {$\overrightarrow{p'_1}$};
+
+\node at (2.75,3.75) {$\bullet$};
+\draw [->,thick] (2.75,3.75)--++($0.7*(2.75,3.75)-0.7*(2,3)$) node [below]  {$\overrightarrow{p'_2}$};
+
+
+\end{tikzpicture}
+
+
+%---------------- billard -----------------  42
+
+\begin{tikzpicture}[scale=1]
+%papier milli
+%\draw [very thin, gray!20] (0,0) grid[step=0.1] (10,6);
+%\draw [very thin, black!20] (0,0) grid[step=0.5] (10,6);
+%\draw [very thin, black!40] (0,0) grid[step=1] (10,6);
+%\node at (0,0) {$\bigstar$};
+
+\coordinate (O2) at (2.39,3.21);
+\node at (O2) {$\bullet$};
+\coordinate (O1) at (3.59,2.26);
+\node at (O1) {$\bullet$};
+
+%centre des billes
+\draw (O2) circle (0.75cm);
+\draw (O1) circle (0.75cm);
+\draw [dashed] (2.39,1) --++(0,3);
+\draw [dashed] (3.59,1) --++(0,3);
+
+%oaramètre d'impact
+\draw[|<->|] (2.39,1)--(3.59,1) node [midway, below] {$b$};
+\node at (3,0.5) {\tiny (paramètre};
+\node at (3,0.25)  {\tiny d'impact)};
+%plan tangent
+\draw [thick] (2,1.5)--(4,4);
+
+%droite qui joint les deux centres
+\draw [dashed] (O1)--(O2);
+
+%v prime 2
+\draw [->,thick,-latex,red] (O2) --++($0.725*(O2)-0.725*(O1)$)node [above] {$\overrightarrow{v'_2}$}; 
+
+%theta 2
+\draw  (2.15,3.4) to [bend left=45] (2.4,3.5);
+\node at (2.2,3.7) {\footnotesize $\theta_2$};
+
+%legende des billes
+\node at (1.5,2.5) {\scriptsize Bille 2};
+\node at (4.75,2) {\scriptsize Bille 1};
+
+% v 1
+\draw [->,thick,-latex,blue] (O1) --++(0,1.75) node [above left] {$\overrightarrow{v_1}$}; 
+
+% projeté de v prime 2
+\begin{scope}[shift=({1.2,0.8}),rotate around={180:(2.4,3.2)}]
+\draw [->,dotted,-latex,red] (2.39,3.21) --++($0.725*(2.39,3.21)-0.725*(3.59,2.26)$)node [above=0.1,opacity=0.5] {\scriptsize $\overrightarrow{v'_2}$}; 
+\end{scope}
+
+% v prime 1
+\draw [red,->,-latex,thick] (O1) -- (4.45,3.3) node [below right] {$\overrightarrow{v'_1}$};
+
+% theta 1
+\draw  (3.6,2.7) to [bend left=45] (3.875,2.605);
+\node at (3.8,2.85) {\footnotesize $\theta_1$};
+
+
+% angle droit
+\begin{scope}[shift=({0.47,0.37}),rotate around={-38:(3,2)}]
+\draw (3,2)|-(3.15,2.15);
+\end{scope}
+
+\node at (2.8,3.1) { \scriptsize $R$};
+\node at (3.3,2.7) { \scriptsize $R$};
+
+\end{tikzpicture}
+
+
+%----------------champ de gravitation et force centrifuge ------------------  43
+
+
+\begin{tikzpicture}[scale=1]
+%\helpgrid{2}{2};
+\coordinate (O) at (0,0);
+\coordinate (M1) at (50:2cm);
+\draw [color=black,smooth] (0,0) circle (2);
+    \draw (-2.5,0) --++ (5,0);
+\draw [->,-latex] (0,-2.5) --++(0,5) node [right] {$\overrightarrow{\Omega}$};
+
+\node at (O) {$\cdot$};
+\node at (M1) {$\bullet$};
+\node at (M1) [above=0.2] {M};
+\draw [dashed] (O) -- (M1);
+ \draw  (0.5,0) to [bend right=45] (0.3,0.38);
+    \node at (0.7,0.3) {$\lambda$};
+
+
+\draw [->,thick] (M1) --++($-0.6*(M1)+0.6*(O)$) node [left] {$\overrightarrow{\mathcal{G}}$};
+
+\draw [dashed] (M1) --++ (-1.4,0) node [left] {H};
+\draw [->,thick] (M1) --++ (0.3,0) node [right] {$\overrightarrow{a_e}$};
+\draw [->,gray] (M1)++($-0.6*(M1)+0.6*(O)$) --++ (0.3,0);
+
+\draw [postaction={decorate,decoration={markings,
+    mark=at position 0.1 with {\arrow[scale=1,>=stealth]{<}}}},red] (M1)++($-0.6*(M1)+0.6*(O)$)++(0.3,0)node [right] {$\overrightarrow{g}$} -- (M1) ;
+
+\end{tikzpicture}
+
+%----------------ellipse 2 ------------------  44
+
+		\begin{tikzpicture}[scale=1]
+		\def \a {2}; %grand axe de l'ellipse
+		\def \b {1.75}; %petit axe de l'ellipse
+		\def \c {(\a*\a-\b*\b)^0.5};
+		\def \e {\c/\a};
+		\coordinate (C) at (0,0); %Centre de l'ellipse
+		\coordinate (O) at ({\c},0); %un des foyer de l'ellipse
+		\coordinate (P) at (1.62,1.02); %périhélie
+		\draw (C) ellipse (\a cm and \b cm); 
+		\node at (O) {$\bullet$};
+		\node at (O) [below left] {O};
+		\node at (P) [above=0.1] {P};
+		%\node at (P) {$\bullet$};
+		\draw (1.4,0) to [bend right=45] (1.25,0.4);
+		\node at (1.6,0.3) {$\theta$};
+		\draw [->,thick](P) --++ ($0.5*(1.62,1.02)-0.5*({\c},0)$) node [above] {$\overrightarrow{u_r}$};
+		
+		\begin{scope}[rotate around={90:(P)}]
+			\draw [->,thick](P) --++ ($0.5*(1.62,1.02)-0.5*({\c},0)$) node [left] {$\overrightarrow{u_{\theta}}$};
+		\draw [] (P) circle (0.15cm) node [right=0.2] {$\overrightarrow{u_z}$};
+			\filldraw [] (P) circle (0.05cm);
+
+		\end{scope}
+
+		\draw [thick,] ({\c},-2) --++ (0,4);
+		\draw [thick,] (-2.5,0) --++ (5,0);
+\draw [->,-latex,thick] (O) --++ (0,-0.75) node [right] {$\overrightarrow{e}$};
+
+		\draw (O) -- (P);
+	\end{tikzpicture}
+
+%----------------balle sur cible------------------  45
+
+
+\begin{tikzpicture}[scale=1,xscale=1,yscale=1]
+		
+%\helpgrid{8}{6};	
+%\node at (0,0) {$\bigstar$};	
+
+\draw [line width=2pt] (0,0) circle (3cm); 
+
+%cible
+\draw [line width=4pt,gray!50,opacity=1] (85:3cm) -- (95:3cm) node [above,midway,gray!80] {Cible};
+
+\draw (0,0) to [bend left=10] (0.6,2.9);
+
+\draw [->,-latex] (0,0) -- (0,1) node [left] {$\overrightarrow{v}$};
+
+\draw [->,-latex] (0,0) -- (1,0) node [below] {$\overrightarrow{F_{ic}}$};
+
+
+\draw (0,0) circle (0.15cm) node [left=0.25cm, thick, black] {$\mathbf{\overrightarrow{\Omega}}$};
+\filldraw [black] (0,0) circle (0.05cm);
+
+\begin{scope}[shift={(8,0)}]
+	\draw [line width=2pt] (0,0) circle (3cm); 
+
+	%cible
+	\draw [line width=4pt,gray!50,opacity=1] (105:3cm) -- (95:3cm) node [above,midway,gray!80] {Cible};
+
+	\draw (0,0) --++ (0,3);
+
+	\draw [->,-latex] (0,0) -- (0,1) node [left] {$\overrightarrow{v}$};
+
+
+	\draw (0,0) circle (0.15cm) node [left=0.25cm, thick, black] {$\mathbf{\overrightarrow{\Omega}}$};
+	\filldraw [black] (0,0) circle (0.05cm);
+\end{scope}
+
+\end{tikzpicture} 
+
+%----------------pendule en translation------------------  46
+
+
+		\begin{tikzpicture}
+			[scale=1,xscale=1,yscale=1]
+			
+			%\helpgrid{4}{4};
+			\coordinate (O) at (-2,2); \coordinate (O') at (0,2); \coordinate (M) at (2,-2); \node at (O) {$\bullet$}; \node at (O') {$\bullet$}; \node at (O) [below left] {O}; \node at (O') [below left] {O'}; \node at (M) [below right] {M}; \node at (M) {$\bullet$};
+			
+			\node at (-2.5,2.5) {($\mathcal{R}$)}; \node at (-0.5,2.5) {($\mathcal{R'}$)};
+			
+			\draw [->,-latex] (-2,-3)--++(0,6) node [right] {y}; 
+			
+			%axe Oy
+			\draw [->,-latex,dashed] (0,-3)--++(0,6) node [right] {y'}; 
+			
+			% axe O'y
+			\draw [->,-latex] (-3,2)--++(5,0); 
+			
+			% Axe Ox
+			\draw [->,-latex,dashed] (2,2)--++(1,0) node [above] {x} node [below] {x'}; 
+			
+			% Axe Ox'
+			\draw (M) -- (0,2); \draw [->] (0,0) to [bend right=45] (0.8,0.4); \node at (0.5,-0.3) {$\theta$}; 
+		\end{tikzpicture}
+
+%----------------jeu de foire------------------  47
+
+
+	 \begin{tikzpicture}[scale=1.5]  	
+
+%	\node[inner sep=0] at (0,1.325) {\includegraphics[scale=0.755]{capitain_bras_tendu_retourne.png}};	
+
+	  \coordinate (O) at (2,0.5);
+	  \coordinate (M) at (2,3.5);                            
+
+	\draw [thick] (2,2.5)--++(1.5,0)--++ (3.8,-2.45);
+	% \draw [] (2,2.8)--++(1.5,0); 
+	\draw [thick] (7.3,0.05) to [bend right] (7.5,0.05);
+	\draw [thick] (2,2.5)++(1.5,0)++(4,-2.45)--++(1.5,1.95);
+	\filldraw [gray!50, opacity=0.7,rotate around={52.5:(7.5,0)}]  (7.5,0) rectangle++ (2.5,0.1);
+	\draw[thick] (2,2.5)--++(0,-2.5);
+	\draw [thick] (2,2.5)++(1.5,0)++(4,-2.5)++(1.5,2)--++(0,-2);     
+	\fill [pattern=north east lines] (2,2.4) rectangle++ (1.5,0.1);                    
+
+	\draw [->,-stealth] (0.475,0)--++(0,3) node [left] {$y$};
+	\draw [->,-stealth] (-1,0) --++ (11,0) node [below] {$x$};  
+
+	\draw [->,thick,-latex] (0.475,0)--++(0,0.7) node [left] {$\overrightarrow{u_y}$};
+	\draw [->,thick,-latex] (0.475,0) --++ (0.7,0) node [below] {$\overrightarrow{u_x}$};                 
+
+	\node at (0.5,0) [below left] {O};
+
+	\draw[rounded corners=2pt,fill=gray!30] (0.35,1.5) rectangle++ (0.25,0.25);
+
+	\draw[rounded corners=2pt,fill=gray!30] (1.875,2.525) rectangle++ (0.25,0.25);            
+	\draw [->,thick,-stealth] (2,2.65) --++(0.75,0) node [above] {$\overrightarrow{v_B}$};
+
+	 \draw [<-] (0.6,1.5)--++(0.3,-0.3); 
+	\node at (1.1,1.1) {A};
+
+	 \draw [<-] (1.9,2.45)--++(-0.3,-0.3); 
+	 \node at (1.5,2.05) {B};
+
+	 \draw [<-] (3.55,2.55)--++(0.3,0.2); 
+	 \node at (4,2.775) {C}; 
+
+	\draw [<-] (7.4,0.2)--++(0,+0.3); 
+	\node at (7.4,0.65) {D}; 
+
+	\draw (6.875,0.3) to [bend right=45] (6.825,0);
+	\node at (6.5,0.2) {$\beta$}; 
+
+	 \draw [<-] (9,2.1)--++(0,+0.3);     
+	\node at (9,2.6) {E};
+	 
+	  \draw (7.8,0.4) to [bend left=45] (7.9,0);
+	\node at (8.1,0.2) {$\gamma$};      
+	
+	   \end{tikzpicture}
+
+%----------------jour sidéral jour solaire------------------  48
+
+		\begin{tikzpicture}[scale=1]
+
+			% \draw (0,2) arc (90:145:8);
+		
+	%arc révolution terre		 
+
+			\draw [dashed](145:7) arc (145:182.5:7) ;
+			
+				%soleil
+		\filldraw [fill=yellow,draw=none] (3,0) circle (0.5cm);
+		%terre 1
+		\filldraw [fill=white](155:7) circle (0.5cm);
+	
+		%flèche vers le soleil
+		\draw [->] (155:7) --++ (-17.5:1);
+		%pointillés vers le soleil
+		\draw [dashed] (155:7) --++ (-17.5:10);
+	  
+	
+		 %arc fléché rotation terre
+		\draw [->] (155:7)++(10:0.7) arc (10:50:0.6); 
+ 
+ 	 %terre 
+ 	 \filldraw [fill=white](165:7) circle (0.5cm);
+ 	%flèche vers le soleil
+ 	\draw [->] (165:7) --++ (10:1); 
+ 
+
+	  %terre 
+	 \filldraw [fill=white](175:7) circle (0.5cm);
+	%flèche vers le soleil
+	\draw [->] (175:7) --++ (40:1); 
+
+	  %terre 
+	 \filldraw [fill=white](200:7) circle (0.5cm); 
+	 \draw [dashed] (192.5:7) arc (192.5:210:7);
+
+	\shadedraw[left color=gray!40,right color=gray!20,draw=none] (200:7)--++(-17.5:3) arc (-17.5:14:3) -- cycle; 
+ 
+	%jour sidéral
+	\draw [->] (200:7) --++ (-17.5:1);
+	%jour sidéral
+	\draw [dashed] (200:7) --++ (-17.5:10) node [midway, below,sloped] {\scriptsize Jour sidéral: 1 tour complet : 23 H 56 min 04 s}; 
+
+
+	 %flèche vers le soleil
+	\draw [dashed,->] (200:7) --++ (14:1);
+	%pointillés vers le soleil
+	\draw [dotted] (200:7) --++ (14:10) node [midway, above,sloped] {\scriptsize Jour solaire: plus d'1 tour : 24 H};
+ 
+		\end{tikzpicture}
+
+%----------------ressort vertical------------------  49
+
+
+	\begin{tikzpicture} [scale=0.75, decoration={coil,aspect=0.4,segment length=3mm,amplitude=3mm}]
+			
+		\draw [-stealth,->,line width=1.25pt,](0,0) --++ (0,-4) node [shift=({-0.5,0})]{$z$};
+	
+	\filldraw (0,-3) circle (0.08cm) node [shift=({-0.5,0})] {M} node [shift=({0.5,0})] {$z(t)$}; 
+	
+	\node at (-0.5,-0.25) {O};
+	
+	\draw [<-, thick] (1,-1.5) --++ (0,0.5) node [midway, right] {$\mathbf{\overrightarrow{g}}$};
+	
+		%ressort
+		\begin{scope}
+		\draw[ressort,decorate] (0,-0.3)--(0,-3) ;
+		\draw[thick,gray] (0,0) -- (0,-0.3); %
+		\fill [pattern=north east lines] (-0.5,0) rectangle (0.5,0.3); %bloc qui tient le ressort
+		\draw[thick] (-0.5,0) -- (0.5,0); %bloc qui tient le ressort
+		%fin ressort
+		% \draw[line width=0.5pt,<->,>=triangle 45](-0.8,0) -- (-0.8,-3) node [midway,left] {$l_0$} ;
+		\end{scope} 
+	\end{tikzpicture}
+
+%----------------ressort horizontal------------------  50
+
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+	%--------ressort central---	
+	\coordinate (O) at (0,0); 
+	\node at (-3.6,0)[below] {O};	
+	\node at (-0.25,-0.25)[below right] {M};	
+	
+	\draw [->,-stealth,thick] (-3.6,0.35) -- (1,0.35) node [below]{$z$};
+	 
+	%ressort   
+	\begin{scope}[shift=({0,0})]     
+
+	\begin{scope}[scale=0.75,shift=({-4.78,0.5}),rotate around={90:(0,0)}]
+	  %bloc qui tient le ressort
+		\draw[thick,gray] (0,0) -- (0,-0.3); 
+		\fill [pattern=north east lines] (-0.5,0) rectangle (0.5,0.3); 
+		\draw[thick](-0.5,0)--(0.5,0);
+		%fin ressort       
+	\end{scope}	
+
+
+	 \draw [ressort,decorate,decoration={coil,aspect=0.6,segment length=5mm,amplitude=3mm}] (-3.375,0.36)--++(3,0) ;
+	\draw[rounded corners=4pt,fill=gray!30] (-0.375,-0.25) rectangle++ (0.25,1.25) node [midway, shift=({0,0.05})] {$\centerdot$};  
+
+\draw [->,red,very thick] (-0.25,0.35)--++(0,1) node [right] {$\overrightarrow{R}$};
+\draw [->,blue,very thick] (-0.25,0.35)--++(0,-1) node [right] {$\overrightarrow{P}$};
+\draw [->,green!50!black,very thick] (-0.35,0.35)--++(-1,0) node [below] {$\overrightarrow{T}$};
+
+
+	 %repérage de \ell
+	% \draw [|<->|] (-3.6,1) -- (-0.4,1) node [midway,above] {$\ell_0$};
+
+	\end{scope}
+	%---FIN ressort central----
+\end{tikzpicture}
+\end{center}
+
+%-------------------- Manège pendulaire------------------  51
+
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+%\helpgrid{6}{6}
+
+
+\node at (0,0) {$\bullet$};
+\node at (0,0) [below left] {O};	
+
+
+
+\draw (-5,-0.75) rectangle++ (10,0.75);
+\draw (-0.25,0) rectangle++ (0.5,4);
+
+\draw (-3,4) rectangle++ (6,0.5);
+\draw [<->,latex-latex] (0.1,4.8)--(2.9,4.8) node [above, midway] {$L$};
+
+\draw [color=gray,line width=3pt] (-3,4.0) -- (-4,2);
+
+\begin{scope}[shift=({0.3,0.1})]
+	\draw [line width=0.5pt,<->,latex-latex] (3,4.25) -- (4,2)  node [right, midway,] {$d$};
+\end{scope}
+\draw [color=gray,line width=3pt] (3,4.0) -- (4,2);
+
+
+\draw [<->,latex-latex] (-2,0)--(-2,4) node [right, midway] {$h$};
+
+
+\draw (4,1.7) ellipse (0.4 and 0.3);
+\node at (4,1.7) {$\bullet$};
+\node at (4,1.7) [shift=({0.6,0})] {M};
+
+% \draw [dotted] (0,1.7) -- (4,1.7);
+
+\draw [dashed] (3,1)--++(0,4);
+
+\draw [thick,-stealth] (0,-1.5) -- (0,5.5) node [left] {$z$};
+
+\draw [->,line width=1pt] (-0.35,3.25) arc (-240:60:0.8 and 0.4) node [shift=({-1.3,0})] {$\omega$};
+
+\draw [->,line width=1pt] (3,2.6) to [bend right=20] (3.6,2.8) ;
+\node at (3.4,2.2) {$\alpha$};
+
+	\begin{scope}[shift=({1.5,0.3})]
+		\draw [thick,->] (0,0)--++(1,0) node [above] {$\overrightarrow{u_r}$};
+		\draw [thick,->] (0,0)--++(0,1) node [left] {$\overrightarrow{u_z}$};
+		 \draw [thick,fill=white] (0,0) circle (0.2cm) node [left=0.15] {$\overrightarrow{u_\theta}$};
+ 		\draw [thick](0,0) --++ (0.15,0.15) (0,0) --++ (-0.15,0.15) (0,0) --++(0.15,-0.15) (0,0) --++ (-0.15,-0.15);
+	\end{scope}
+
+\draw [->] (-5,3)--++(0,-1) node [left] {$\overrightarrow{g}$};
+
+\end{tikzpicture}
+\end{center}
+
+%---------------- Pendule élastique forcé ------------  52
+\begin{tikzpicture}[scale=0.75, decoration={coil,aspect=0.4,segment length=3mm,amplitude=3mm}]
+
+\draw[ressort,decorate] (0,3)--(0,0) ;
+
+\begin{scope}[yshift=0.5cm,xshift=-0.25cm]
+\fill [pattern=north east lines] (-0.5,4.5) rectangle (0.5,4.75); %bloc qui tient le 
+\draw[thick,gray] (-0.5,4.5) -- (0.5,4.5); %bloc qui tient le ressort
+\draw[thick,gray] (0,4.5) -- (0,4.15);
+\end{scope}
+
+\draw[thick,gray] (0,4.5) -- (0,3); %tige au dessus ressort
+\draw [thick, gray] (0,0)--(0,-1.9);
+\draw [color=white,ball color=gray,smooth] (0,-1.7) circle (0.4) node [black,below right=0.2cm] {\scriptsize{M}} ;
+%fin ressort
+
+\begin{scope}[xshift=-5.27cm]
+
+\begin{scope}[xshift=-1cm,yshift=1cm]
+\draw (0,-2) rectangle (2,-0.5) node [midway, above=0.15cm ] {Moteur};
+\filldraw [black] (1.7,-1.3) circle (0.08cm);
+\draw (1.5,-1.5) circle (0.28cm);
+\end{scope}
+
+\draw (5,4.4) circle (0.28cm);
+\draw [gray] (0.7,-0.3) -- (4.75,4.45);
+
+\end{scope}
+
+%eprouvette
+\draw [gray,very thick] (-1,-4) --++ (0,5);
+\draw [gray,very thick] (1,-4) --++ (0,5);
+\draw [gray,very thick] (-2,-4) --++ (4,0);
+\fill [gray,opacity=0.2] (-1,-4) rectangle (1,0);
+%fin eprouvette
+
+%générateur
+\draw (3,-3.3) rectangle++ (3,1.5) node [midway, above=0.1cm] {Générateur};
+\draw [black] (5.2,-2.7) circle (0.1cm) node [below=0.025cm] {\scriptsize{Masse}};
+\filldraw [black] (3.8,-2.7) circle (0.1cm) node [below=0.025cm] {\scriptsize{+}};
+% fin générateur
+
+%oscilloscope
+\draw (3,-1) rectangle++ (3,2) node [midway, above=0.1cm] {Oscilloscope};
+\draw node at (3.7,-0.7) {\scriptsize{Voie 1}};
+\filldraw [black] (3.4,-0.3) circle (0.1cm);
+\draw [black] (4,-0.3) circle (0.1cm);
+%fin oscilloscope
+
+%fils
+\draw [red] (3.8,-2.7) --++ (-2,0) --++ (0,4) --++ (-1.1,0) --++ (0,-1.5);
+\draw [black] (5.2,-2.7) --++ (1.5,0) --++ (0,-1.75) --++ (-9,0) --++ (0,5.75) --++ (1.6,0) --++ (0,-5);
+
+\filldraw [black] (-0.85,-3.8) rectangle++ (0.3,0.1) node [right] {\scriptsize{B}};
+\filldraw [red] (0.55,-0.2) rectangle++ (0.3,0.1) node [below] at (0.7,-0.2) {\scriptsize{A}};
+
+\draw [red] (3.4,-0.3) --++ (-0.7,0) --++ (0,4) --++ (-2.7,0) node [left, black] {\scriptsize{M'}};
+\draw [black] (4,-0.3) --++ (2.7,0) --++ (0,-2.4);
+%fin fils
+\end{tikzpicture}
+
+\end{document}

@@ -1,0 +1,80 @@
+\documentclass[12pt, a4paper]{report}
+%\documentclass[11pt, a4paper]{article}
+
+%====================== PACKAGES ======================
+\usepackage[french]{babel}
+
+\frenchbsetup{StandardLists=true}
+\usepackage{enumitem}
+\usepackage{pifont}
+
+\usepackage[utf8x]{inputenc}
+\usepackage{float}
+\usepackage{amsmath}
+\DeclareMathOperator{\dt}{dt}
+\usepackage{graphicx}
+%\usepackage{tabularx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{url}
+
+%pour la mise en page des tableaux
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{multicol}
+\setlength{\columnsep}{50pt}
+
+%espacement entre les lignes
+\usepackage{setspace}
+
+%police et mise en page (marges) du document
+\usepackage[T1]{fontenc}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+\usepackage{subfig}%Pour les galerie d'images
+\usepackage{pdfpages}
+
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{decorations.pathreplacing,calligraphy}
+\usetikzlibrary{decorations.pathmorphing,calc,shapes,shapes.geometric,patterns}
+\usetikzlibrary{calc,intersections}
+%\usetikzlibrary{decorations}
+\usetikzlibrary{angles, quotes}
+
+\usepackage{verbatim}
+\usepackage{appendix}
+\usepackage{comment}
+\usepackage{xcolor}
+
+%\PreviewEnvironment{tikzpicture}
+%\setlength\PreviewBorder{0pt}%
+
+%====================== INFORMATION ET REGLES ======================
+%======================== DEBUT DU DOCUMENT ========================
+\begin{document}
+%====================== INCLUSION DES CHAPITRES ======================
+%\input{./maxwell.tex}
+%
+\input{./electrique.tex}
+%
+%
+%====================== INCLUSION DE LA BIBLIOGRAPHIE ======================
+%
+%récupérer les citation avec "/footnotemark" : 
+\nocite{*}
+%
+% choix du style de la biblio
+\bibliographystyle{plain}
+%
+% inclusion de la biblio
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Bibliographie}
+\bibliography{bibliographie.bib}
+%
+%====================== FIN DU DOCUMENT ======================
+%
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

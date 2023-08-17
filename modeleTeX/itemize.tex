@@ -1,5 +1,17 @@
 
-	\begin{itemize}[leftmargin=1cm, label=\ding{32}, itemsep=1pt]
-		\item 
-	\end{itemize}
+\begin{itemize}[leftmargin=1cm, label=\ding{32}, itemsep=1pt]
+\item {\bf }
+\end{itemize}
 
+\begin{enumerate}[label=\Roman*]%[label=\arabic*]
+  \item 
+\end{enumerate}
+
+\newcounter{numero}
+\begin{enumerate}
+  \item 
+\setcounter{numero}{\theenumi}\end{enumerate}
+\begin{enumerate}
+  \setcounter{enumi}{\thenumero}
+  \item 
+\end{enumerate} 
