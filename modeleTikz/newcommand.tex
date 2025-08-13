@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+
+\begin{document}
+
+\newcommand{\relation}[3][]
+{
+  % this needed to be modified somehow...
+  \path [draw=red,#1] (#2) -- (#3);
+}
+
+\begin{tikzpicture}
+  \node [draw] (A) at (0, 0) {A};
+  \node [draw] (B) at (3, 0) {B};
+  \node [draw] (C) at (3, 3) {C};
+  \relation{A}{B}
+  \relation[<->, color=green!40!black!100]{A}{C}
+\end{tikzpicture}
+
+\end{document}
